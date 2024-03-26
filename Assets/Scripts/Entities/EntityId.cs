@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace Utils.Entity
+namespace Entities
 {
-    public class CreateEntityId : MonoBehaviour
+    public class EntityId : MonoBehaviour
     {
         public Guid Eid = Guid.NewGuid();
     }

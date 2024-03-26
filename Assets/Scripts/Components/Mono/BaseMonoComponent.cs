@@ -1,9 +1,9 @@
+using Entities;
 using UnityEngine;
-using Utils.Entity;
 
 namespace Components.Mono
 {
-    [RequireComponent(typeof(CreateEntityId))]
+    [RequireComponent(typeof(EntityId))]
     public abstract class BaseComponent : MonoBehaviour
     {
     }

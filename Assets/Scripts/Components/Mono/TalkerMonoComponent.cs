@@ -1,7 +1,7 @@
 using System;
 using ComponentGroup.Interfaces;
+using Entities;
 using UnityEngine;
-using Utils.Entity;
 using Zenject;
 
 namespace Components.Mono
@@ -15,7 +15,7 @@ namespace Components.Mono
 
         void Awake()
         {
-            _eid = GetComponent<CreateEntityId>().Eid;
+            _eid = GetComponent<EntityId>().Eid;
 
             if (_talkerComponentGroup != null)
             {
