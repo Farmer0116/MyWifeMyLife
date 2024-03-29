@@ -1,6 +1,6 @@
 using System;
-using ComponentGroup.Interfaces;
 using Cysharp.Threading.Tasks;
+using Models.Interfaces;
 using Systems.Interfaces;
 using UniRx;
 using Zenject;
@@ -9,7 +9,7 @@ namespace Systems
 {
     public class TalkerSystem : ITalkerSystem
     {
-        [Inject] private ITalkerComponentGroup _talkerComponentGroup;
+        [Inject] private ITalkerModel _talkerModel;
 
         private IDisposable _updateDisposable;
 
@@ -21,11 +21,11 @@ namespace Systems
         {
             _updateDisposable = Observable.EveryFixedUpdate().Subscribe(_ =>
             {
-                if (_talkerComponentGroup.TalkerComponentMap.Count > 0)
+                if (_talkerModel.TalkerPropMap.Count > 0)
                 {
-                    foreach (var prop in _talkerComponentGroup.TalkerComponentMap)
+                    foreach (var prop in _talkerModel.TalkerPropMap)
                     {
-                        UnityEngine.Debug.Log("コンソール" + " : " + _talkerComponentGroup.TalkerComponentMap.Count + " : " + prop.Key);
+                        UnityEngine.Debug.Log("コンソール" + " : " + _talkerModel.TalkerPropMap.Count + " : " + prop.Key);
                     }
                 }
             });

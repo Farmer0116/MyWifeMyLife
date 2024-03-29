@@ -1,6 +1,10 @@
+using Entities;
+using UnityEngine;
+
 namespace Components
 {
-    public abstract class BaseComponent
+    [RequireComponent(typeof(EntityId))]
+    public abstract class BaseComponent : MonoBehaviour
     {
     }
 }
