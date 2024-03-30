@@ -7,32 +7,34 @@ using Models.Interfaces;
 
 namespace Components
 {
-    public class TalkerComponent : BaseComponent
+  public class TalkerComponent : BaseComponent
+  {
+    [Inject] private ITalkerModel _talkerModel;
+    [SerializeField] private TalkerProp _talkerProp = new TalkerProp();
+    private Guid _eid;
+    private ZenAutoInjecter _injecter;
+
+    void Awake()
     {
-        [Inject] private ITalkerModel _talkerModel;
-        [SerializeField] private TalkerProp _talkerProp = new TalkerProp();
-        private Guid _eid;
-        private ZenAutoInjecter _injecter;
+      // 共通処理
+      _eid = GetComponent<EntityId>().Eid;
+      _talkerProp.Component = this;
 
-        void Awake()
-        {
-            _eid = GetComponent<EntityId>().Eid;
-
-            if (_talkerModel != null)
-            {
-                _talkerModel.TalkerPropMap.Add(_eid, _talkerProp);
-            }
-            else
-            {
-                _injecter = gameObject.AddComponent<ZenAutoInjecter>();
-                _talkerModel.TalkerPropMap.Add(_eid, _talkerProp);
-            }
-        }
-
-        void OnDestroy()
-        {
-            _talkerModel.TalkerPropMap.Remove(_eid);
-            if (_injecter != null) Destroy(_injecter);
-        }
+      if (_talkerModel != null)
+      {
+        _talkerModel.TalkerPropMap.Add(_eid, _talkerProp);
+      }
+      else
+      {
+        _injecter = gameObject.AddComponent<ZenAutoInjecter>();
+        _talkerModel.TalkerPropMap.Add(_eid, _talkerProp);
+      }
     }
+
+    void OnDestroy()
+    {
+      _talkerModel.TalkerPropMap.Remove(_eid);
+      if (_injecter != null) Destroy(_injecter);
+    }
+  }
 }

@@ -1,6 +1,6 @@
 namespace Models.Interfaces
 {
-    public interface IBaseModel
-    {
-    }
+  public interface IBaseModel
+  {
+  }
 }

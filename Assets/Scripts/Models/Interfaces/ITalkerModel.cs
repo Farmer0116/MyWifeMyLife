@@ -1,10 +1,10 @@
 using System;
-using System.Collections.Generic;
+using UniRx;
 
 namespace Models.Interfaces
 {
-    public interface ITalkerModel : IBaseModel
-    {
-        public Dictionary<Guid, TalkerProp> TalkerPropMap { get; }
-    }
+  public interface ITalkerModel : IBaseModel
+  {
+    ReactiveDictionary<Guid, TalkerProp> TalkerPropMap { get; }
+  }
 }

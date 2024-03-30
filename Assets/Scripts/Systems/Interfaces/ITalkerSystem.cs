@@ -1,6 +1,6 @@
 namespace Systems.Interfaces
 {
-    public interface ITalkerSystem : IBaseSystem
-    {
-    }
+  public interface ITalkerSystem : IBaseSystem
+  {
+  }
 }
