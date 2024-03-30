@@ -5,41 +5,45 @@ using Zenject;
 
 namespace Mains
 {
-    [DefaultExecutionOrder(999)]
-    public class GameMain : MonoBehaviour
+  [DefaultExecutionOrder(999)]
+  public class GameMain : MonoBehaviour
+  {
+    private ITalkerSystem _talkerSystem;
+    private IFollowSystem _followSystem;
+
+    [Inject]
+    private void construct
+    (
+        ITalkerSystem talkerSystem,
+        IFollowSystem followSystem
+    )
     {
-        private ITalkerSystem _talkerSystem;
-
-        [Inject]
-        private void construct
-        (
-            ITalkerSystem talkerSystem
-        )
-        {
-            _talkerSystem = talkerSystem;
-        }
-
-        private async void Awake()
-        {
-            try
-            {
-                await _talkerSystem.Begin();
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-        }
-
-        private void Start()
-        {
-            // ========== 初期設定 ==========
-        }
-
-        private void OnDestroy()
-        {
-        }
+      _talkerSystem = talkerSystem;
+      _followSystem = followSystem;
     }
+
+    private async void Awake()
+    {
+      try
+      {
+        await _talkerSystem.Begin();
+        await _followSystem.Begin();
+      }
+      catch (Exception e)
+      {
+        throw;
+      }
+    }
+
+    private void Start()
+    {
+      // ========== 初期設定 ==========
+    }
+
+    private void OnDestroy()
+    {
+    }
+  }
 }
 
 

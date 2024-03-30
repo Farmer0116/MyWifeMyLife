@@ -7,28 +7,30 @@ using Models;
 
 namespace Installers
 {
-    public class GameInstaller : MonoInstaller
+  public class GameInstaller : MonoInstaller
+  {
+    [field: Header("メイン")]
+    [SerializeField] private GameObject main = default;
+
+    // [SerializeField] private BaseCharacterController baseCharacterController = default;
+    // [SerializeField] private PlayerCamera playerCamera = default;
+
+    public GameObject Main => main;
+
+    public override void InstallBindings()
     {
-        [field: Header("メイン")]
-        [SerializeField] private GameObject main = default;
+      // if (Container.HasBinding<ITest>() && main != null)
+      // {
+      //     main.SetActive(false);
+      // }
 
-        // [SerializeField] private BaseCharacterController baseCharacterController = default;
-        // [SerializeField] private PlayerCamera playerCamera = default;
+      // System
+      Container.Bind<ITalkerSystem>().To<TalkerSystem>().AsCached().IfNotBound();
+      Container.Bind<IFollowSystem>().To<FollowSystem>().AsCached().IfNotBound();
 
-        public GameObject Main => main;
-
-        public override void InstallBindings()
-        {
-            // if (Container.HasBinding<ITest>() && main != null)
-            // {
-            //     main.SetActive(false);
-            // }
-
-            // System
-            Container.Bind<ITalkerSystem>().To<TalkerSystem>().AsCached().IfNotBound();
-
-            // Model
-            Container.Bind<ITalkerModel>().To<TalkerModel>().AsCached().IfNotBound();
-        }
+      // Model
+      Container.Bind<ITalkerModel>().To<TalkerModel>().AsCached().IfNotBound();
+      Container.Bind<IFollowModel>().To<FollowModel>().AsCached().IfNotBound();
     }
+  }
 }
