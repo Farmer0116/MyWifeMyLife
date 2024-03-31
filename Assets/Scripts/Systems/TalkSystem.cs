@@ -7,13 +7,13 @@ using Zenject;
 
 namespace Systems
 {
-  public class TalkerSystem : ITalkerSystem
+  public class TalkSystem : ITalkSystem
   {
-    [Inject] private ITalkerModel _talkerModel;
+    [Inject] private ITalkModel _talkModel;
 
     private IDisposable _updateDisposable;
 
-    public TalkerSystem()
+    public TalkSystem()
     {
     }
 
@@ -21,11 +21,10 @@ namespace Systems
     {
       _updateDisposable = Observable.EveryFixedUpdate().Subscribe(_ =>
       {
-        if (_talkerModel.TalkerMap.Count > 0)
+        if (_talkModel.TalkerMap.Count > 0)
         {
-          foreach (var prop in _talkerModel.TalkerMap)
+          foreach (var prop in _talkModel.TalkerMap)
           {
-            UnityEngine.Debug.Log("コンソール" + " : " + _talkerModel.TalkerMap.Count + " : " + prop.Key);
           }
         }
       });
