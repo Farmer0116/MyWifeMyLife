@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Components
 {
-    [RequireComponent(typeof(EntityId))]
+    [RequireComponent(typeof(EntityIdComponent))]
     public abstract class BaseComponent : MonoBehaviour
     {
     }

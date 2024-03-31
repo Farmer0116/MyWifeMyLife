@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Entities
 {
-    public class EntityId : MonoBehaviour
+    public class EntityIdComponent : MonoBehaviour
     {
         public Guid Eid = Guid.NewGuid();
     }

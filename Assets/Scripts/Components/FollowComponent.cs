@@ -16,7 +16,7 @@ namespace Components
 
         void Awake()
         {
-            _eid = GetComponent<EntityId>().Eid;
+            _eid = GetComponent<EntityIdComponent>().Eid;
             _followModelData.Component = this;
 
             if (_followModel != null)

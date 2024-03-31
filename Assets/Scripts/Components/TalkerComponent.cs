@@ -17,7 +17,7 @@ namespace Components
     void Awake()
     {
       // 共通処理
-      _eid = GetComponent<EntityId>().Eid;
+      _eid = GetComponent<EntityIdComponent>().Eid;
       _talkerModelData.Component = this;
 
       if (_talkerModel != null)
