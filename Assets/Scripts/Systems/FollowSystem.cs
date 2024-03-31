@@ -22,9 +22,9 @@ namespace Systems
     {
       _updateDisposable = Observable.EveryUpdate().Subscribe(_ =>
       {
-        if (_followModel.FollowPropMap.Count > 0)
+        if (_followModel.FollowMap.Count > 0)
         {
-          foreach (var prop in _followModel.FollowPropMap)
+          foreach (var prop in _followModel.FollowMap)
           {
             if (prop.Value.Component != null)
             {

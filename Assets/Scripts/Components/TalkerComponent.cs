@@ -10,7 +10,7 @@ namespace Components
   public class TalkerComponent : BaseComponent
   {
     [Inject] private ITalkerModel _talkerModel;
-    [SerializeField] private TalkerProp _talkerProp = new TalkerProp();
+    [SerializeField] private TalkerModelData _talkerModelData = new TalkerModelData();
     private Guid _eid;
     private ZenAutoInjecter _injecter;
 
@@ -18,22 +18,22 @@ namespace Components
     {
       // 共通処理
       _eid = GetComponent<EntityId>().Eid;
-      _talkerProp.Component = this;
+      _talkerModelData.Component = this;
 
       if (_talkerModel != null)
       {
-        _talkerModel.TalkerPropMap.Add(_eid, _talkerProp);
+        _talkerModel.TalkerMap.Add(_eid, _talkerModelData);
       }
       else
       {
         _injecter = gameObject.AddComponent<ZenAutoInjecter>();
-        _talkerModel.TalkerPropMap.Add(_eid, _talkerProp);
+        _talkerModel.TalkerMap.Add(_eid, _talkerModelData);
       }
     }
 
     void OnDestroy()
     {
-      _talkerModel.TalkerPropMap.Remove(_eid);
+      _talkerModel.TalkerMap.Remove(_eid);
       if (_injecter != null) Destroy(_injecter);
     }
   }

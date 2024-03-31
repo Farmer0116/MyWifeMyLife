@@ -21,11 +21,11 @@ namespace Systems
     {
       _updateDisposable = Observable.EveryFixedUpdate().Subscribe(_ =>
       {
-        if (_talkerModel.TalkerPropMap.Count > 0)
+        if (_talkerModel.TalkerMap.Count > 0)
         {
-          foreach (var prop in _talkerModel.TalkerPropMap)
+          foreach (var prop in _talkerModel.TalkerMap)
           {
-            UnityEngine.Debug.Log("コンソール" + " : " + _talkerModel.TalkerPropMap.Count + " : " + prop.Key);
+            UnityEngine.Debug.Log("コンソール" + " : " + _talkerModel.TalkerMap.Count + " : " + prop.Key);
           }
         }
       });

@@ -7,12 +7,12 @@ namespace Models
 {
   public class FollowModel : IFollowModel
   {
-    public ReactiveDictionary<Guid, FollowProp> FollowPropMap { get { return _followPropMap; } }
-    private readonly ReactiveDictionary<Guid, FollowProp> _followPropMap = new ReactiveDictionary<Guid, FollowProp>();
+    public ReactiveDictionary<Guid, FollowModelData> FollowMap { get { return _followMap; } }
+    private readonly ReactiveDictionary<Guid, FollowModelData> _followMap = new ReactiveDictionary<Guid, FollowModelData>();
   }
 
   [Serializable]
-  public class FollowProp : BaseProp
+  public class FollowModelData : BaseModeData
   {
     public GameObject Target;
     public Vector3 PositionOffset;

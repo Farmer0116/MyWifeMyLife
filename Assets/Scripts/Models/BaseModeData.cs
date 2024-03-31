@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Models
 {
-  public abstract class BaseProp
+  public abstract class BaseModeData
   {
     [HideInInspector] public BaseComponent? Component;
   }

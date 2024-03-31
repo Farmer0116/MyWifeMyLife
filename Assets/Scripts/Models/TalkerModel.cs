@@ -10,12 +10,12 @@ namespace Models
     /// 
     /// </summary>
     /// <value></value>
-    public ReactiveDictionary<Guid, TalkerProp> TalkerPropMap { get { return _talkerPropMap; } }
-    public ReactiveDictionary<Guid, TalkerProp> _talkerPropMap = new ReactiveDictionary<Guid, TalkerProp>();
+    public ReactiveDictionary<Guid, TalkerModelData> TalkerMap { get { return _talkerMap; } }
+    public ReactiveDictionary<Guid, TalkerModelData> _talkerMap = new ReactiveDictionary<Guid, TalkerModelData>();
   }
 
   [Serializable]
-  public class TalkerProp : BaseProp
+  public class TalkerModelData : BaseModeData
   {
     public float TalkSpeed;
     public float HearingRange;

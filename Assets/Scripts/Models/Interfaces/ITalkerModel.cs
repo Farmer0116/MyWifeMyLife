@@ -5,6 +5,6 @@ namespace Models.Interfaces
 {
   public interface ITalkerModel : IBaseModel
   {
-    ReactiveDictionary<Guid, TalkerProp> TalkerPropMap { get; }
+    ReactiveDictionary<Guid, TalkerModelData> TalkerMap { get; }
   }
 }

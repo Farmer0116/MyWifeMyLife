@@ -10,29 +10,29 @@ namespace Components
     public class FollowComponent : BaseComponent
     {
         [Inject] private IFollowModel _followModel;
-        [SerializeField] private FollowProp _followProp = new FollowProp();
+        [SerializeField] private FollowModelData _followModelData = new FollowModelData();
         private Guid _eid;
         private ZenAutoInjecter _injecter;
 
         void Awake()
         {
             _eid = GetComponent<EntityId>().Eid;
-            _followProp.Component = this;
+            _followModelData.Component = this;
 
             if (_followModel != null)
             {
-                _followModel.FollowPropMap.Add(_eid, _followProp);
+                _followModel.FollowMap.Add(_eid, _followModelData);
             }
             else
             {
                 _injecter = gameObject.AddComponent<ZenAutoInjecter>();
-                _followModel.FollowPropMap.Add(_eid, _followProp);
+                _followModel.FollowMap.Add(_eid, _followModelData);
             }
         }
 
         void OnDestroy()
         {
-            _followModel.FollowPropMap.Remove(_eid);
+            _followModel.FollowMap.Remove(_eid);
             if (_injecter != null) Destroy(_injecter);
         }
     }
