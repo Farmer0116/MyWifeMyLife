@@ -1,9 +1,5 @@
 using UnityEngine;
 using Zenject;
-using Systems;
-using Systems.Interfaces;
-using Models.Interfaces;
-using Models;
 
 namespace Installers
 {
@@ -25,12 +21,8 @@ namespace Installers
       // }
 
       // System
-      Container.Bind<ITalkerSystem>().To<TalkerSystem>().AsCached().IfNotBound();
-      Container.Bind<IFollowSystem>().To<FollowSystem>().AsCached().IfNotBound();
 
       // Model
-      Container.Bind<ITalkerModel>().To<TalkerModel>().AsCached().IfNotBound();
-      Container.Bind<IFollowModel>().To<FollowModel>().AsCached().IfNotBound();
     }
   }
 }
