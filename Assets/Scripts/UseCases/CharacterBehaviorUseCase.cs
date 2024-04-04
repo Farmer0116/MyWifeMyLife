@@ -23,6 +23,17 @@ namespace UseCases
 
         public async UniTask Begin()
         {
+            _characterModel.OnSpawnSubject.Subscribe(root =>
+            {
+                // todo : 一時対応
+                Animator animator = root.GetComponent<Animator>();
+                if (animator)
+                {
+                    var controller = Resources.Load<RuntimeAnimatorController>("Character/CharacterLocomotions");
+                    animator.runtimeAnimatorController = controller;
+                }
+            });
+
             _characterModel = _factory.Create(new CharacterModel.CharacterModelParam());
             _characterModel.Spawn(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0), new Vector3(1, 1, 1));
         }
