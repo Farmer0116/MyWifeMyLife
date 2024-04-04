@@ -1,9 +1,8 @@
-using UnityEngine;
-using Zenject;
-using Systems;
-using Systems.Interfaces;
-using Models.Interfaces;
 using Models;
+using UnityEngine;
+using UseCases;
+using UseCases.Interfaces;
+using Zenject;
 
 namespace Installers
 {
@@ -24,13 +23,11 @@ namespace Installers
       //     main.SetActive(false);
       // }
 
-      // System
-      Container.Bind<ITalkerSystem>().To<TalkerSystem>().AsCached().IfNotBound();
-      Container.Bind<IFollowSystem>().To<FollowSystem>().AsCached().IfNotBound();
+      // UseCase
+      Container.Bind<ICharacterBehaviorUseCase>().To<CharacterBehaviorUseCase>().AsCached().IfNotBound();
 
-      // Model
-      Container.Bind<ITalkerModel>().To<TalkerModel>().AsCached().IfNotBound();
-      Container.Bind<IFollowModel>().To<FollowModel>().AsCached().IfNotBound();
+      // Factory
+      Container.BindFactory<CharacterModel.CharacterModelParam, CharacterModel, CharacterModel.Factory>();
     }
   }
 }
