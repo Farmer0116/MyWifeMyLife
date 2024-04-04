@@ -6,6 +6,8 @@ namespace Models.Interfaces
 {
     public interface ICharacterModel : IModel
     {
+        int Id { get; set; }
+        string Name { get; set; }
         string VrmPath { get; set; }
         int TalkSpeed { get; set; }
         string NaturePrompt { get; set; }

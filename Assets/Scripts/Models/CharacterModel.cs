@@ -52,10 +52,8 @@ namespace Models
             _tonePrompt = characterModelParam.TonePrompt;
         }
 
-        // 共通
         public int Id { get { return _id; } set { _id = value; } }
         public string Name { get { return _name; } set { _name = value; } }
-        // 固有
         public string VrmPath { get { return _vrmPath; } set { _vrmPath = value; } }
         public int TalkSpeed { get { return _talkSpeed; } set { _talkSpeed = value; } }
         public string NaturePrompt { get { return _naturePrompt; } set { _naturePrompt = value; } }
