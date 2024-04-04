@@ -1,4 +1,7 @@
+using Models;
 using UnityEngine;
+using UseCases;
+using UseCases.Interfaces;
 using Zenject;
 
 namespace Installers
@@ -20,9 +23,11 @@ namespace Installers
       //     main.SetActive(false);
       // }
 
-      // System
+      // UseCase
+      Container.Bind<ICharacterBehaviorUseCase>().To<CharacterBehaviorUseCase>().AsCached().IfNotBound();
 
-      // Model
+      // Factory
+      Container.BindFactory<CharacterModel.CharacterModelParam, CharacterModel, CharacterModel.Factory>();
     }
   }
 }
