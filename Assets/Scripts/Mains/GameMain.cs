@@ -9,14 +9,17 @@ namespace Mains
   public class GameMain : MonoBehaviour
   {
     private ICharacterBehaviorUseCase _characterBehaviorUseCase;
+    private IVRMSelectionUseCase _vrmSelectionUseCase;
 
     [Inject]
     private void construct
     (
-      ICharacterBehaviorUseCase characterBehaviorUseCase
+      ICharacterBehaviorUseCase characterBehaviorUseCase,
+      IVRMSelectionUseCase vrmSelectionUseCase
     )
     {
       _characterBehaviorUseCase = characterBehaviorUseCase;
+      _vrmSelectionUseCase = vrmSelectionUseCase;
     }
 
     private async void Awake()
@@ -24,6 +27,7 @@ namespace Mains
       try
       {
         await _characterBehaviorUseCase.Begin();
+        await _vrmSelectionUseCase.Begin();
       }
       catch (Exception e)
       {
