@@ -1,8 +1,12 @@
-using Models;
-using UnityEngine;
+using Presentation.Presenters;
+using Presentation.Presenters.Interfaces;
+using Presentation.Views;
+using Presentation.Views.Interfaces;
 using UseCases;
 using UseCases.Interfaces;
+using UnityEngine;
 using Zenject;
+using Models;
 
 namespace Installers
 {
@@ -25,6 +29,10 @@ namespace Installers
 
       // UseCase
       Container.Bind<ICharacterBehaviorUseCase>().To<CharacterBehaviorUseCase>().AsCached().IfNotBound();
+      Container.Bind<IVRMSelectionUseCase>().To<VRMSelectionUseCase>().AsCached().IfNotBound();
+
+      // Presenter
+      Container.Bind<IVRMSelectionPresenter>().To<VRMSelectionPresenter>().AsCached().IfNotBound();
 
       // Factory
       Container.BindFactory<CharacterModel.CharacterModelParam, CharacterModel, CharacterModel.Factory>();
