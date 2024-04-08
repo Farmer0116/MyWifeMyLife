@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Models.Interfaces;
+using Cores.Models.Interfaces;
 using UniRx;
 using UnityEngine;
 using Utils;
 using Zenject;
 
-namespace Models
+namespace Cores.Models
 {
     public class CharacterModel : ICharacterModel
     {

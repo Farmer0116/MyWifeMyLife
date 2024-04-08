@@ -1,9 +1,9 @@
-using Presentation.Views.Interfaces;
+using Cores.Views.Interfaces;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Presentation.Views
+namespace Cores.Views
 {
     public class VRMSelectionView : MonoBehaviour, IVRMSelectionView
     {

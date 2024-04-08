@@ -1,4 +1,4 @@
-namespace Models.Interfaces
+namespace Cores.Models.Interfaces
 {
     public interface IModel
     {

@@ -1,7 +1,7 @@
 using System;
 using UniRx;
 
-namespace Presentation.Presenters.Interfaces
+namespace Cores.Presenters.Interfaces
 {
     public interface IVRMSelectionPresenter
     {

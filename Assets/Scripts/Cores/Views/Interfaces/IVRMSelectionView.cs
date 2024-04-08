@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Presentation.Views.Interfaces
+namespace Cores.Views.Interfaces
 {
     public interface IVRMSelectionView
     {

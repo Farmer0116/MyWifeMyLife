@@ -1,8 +1,8 @@
 using Cysharp.Threading.Tasks;
 using UniRx;
-using UseCases.Interfaces;
+using Cores.UseCases.Interfaces;
 
-namespace UseCases
+namespace Cores.UseCases
 {
     public class CharacterBehaviorUseCase : ICharacterBehaviorUseCase
     {

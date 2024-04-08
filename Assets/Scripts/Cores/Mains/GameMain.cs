@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using UseCases.Interfaces;
+using Cores.UseCases.Interfaces;
 using Zenject;
 
 namespace Mains
