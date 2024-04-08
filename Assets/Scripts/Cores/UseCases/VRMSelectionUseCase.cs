@@ -1,14 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using Cysharp.Threading.Tasks;
-using Models;
-using Presentation.Presenters.Interfaces;
+using Cores.Models;
+using Cores.Presenters.Interfaces;
 using UniRx;
 using UnityEngine;
-using UseCases.Interfaces;
+using Cores.UseCases.Interfaces;
 
-namespace UseCases
+namespace Cores.UseCases
 {
     public class VRMSelectionUseCase : IVRMSelectionUseCase
     {

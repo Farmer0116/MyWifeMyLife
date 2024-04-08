@@ -1,12 +1,7 @@
-using Presentation.Presenters;
-using Presentation.Presenters.Interfaces;
-using Presentation.Views;
-using Presentation.Views.Interfaces;
-using UseCases;
-using UseCases.Interfaces;
+using Cores.Views;
+using Cores.Views.Interfaces;
 using UnityEngine;
 using Zenject;
-using Models;
 
 namespace Installers
 {

@@ -1,10 +1,10 @@
 using System;
-using Presentation.Presenters.Interfaces;
-using Presentation.Views.Interfaces;
+using Cores.Presenters.Interfaces;
+using Cores.Views.Interfaces;
 using UniRx;
 using Zenject;
 
-namespace Presentation.Presenters
+namespace Cores.Presenters
 {
     public class VRMSelectionPresenter : IVRMSelectionPresenter
     {

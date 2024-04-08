@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 
-namespace Models.Interfaces
+namespace Cores.Models.Interfaces
 {
     public interface ICharacterModel : IModel
     {
