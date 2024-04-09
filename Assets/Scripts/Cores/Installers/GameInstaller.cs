@@ -5,6 +5,7 @@ using Cores.UseCases.Interfaces;
 using Cores.Models;
 using UnityEngine;
 using Zenject;
+using Cores.Models.Interfaces;
 
 namespace Installers
 {
@@ -24,6 +25,9 @@ namespace Installers
       // {
       //     main.SetActive(false);
       // }
+
+      // Model
+      Container.Bind<ISpawningCharactersModel>().To<SpawningCharactersModel>().AsCached().IfNotBound();
 
       // UseCase
       Container.Bind<ICharacterBehaviorUseCase>().To<CharacterBehaviorUseCase>().AsCached().IfNotBound();
