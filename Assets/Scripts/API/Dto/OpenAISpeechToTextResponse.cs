@@ -1,6 +1,6 @@
 namespace API.Dto
 {
-    public class WisperSTTResponse
+    public class OpenAISpeechToTextResponse
     {
         string text;
     }
