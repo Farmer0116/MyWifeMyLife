@@ -5,6 +5,6 @@ namespace API.Interfaces
 {
     public interface IAPIClient
     {
-        UniTask<WisperSTTResponse> GetWisperSTTAsync(byte[] audioData , string language);
-    } 
+        UniTask<OpenAISpeechToTextResponse> GetOpenAISpeechToTextAsync(byte[] audioData, string language = "ja");
+    }
 }
