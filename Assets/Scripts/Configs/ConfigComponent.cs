@@ -34,8 +34,6 @@ namespace Configs
         /// <returns></returns>
         private ApplicationConfigs LoadConfig()
         {
-            // 愚直にswitchで
-            // 他にもっといい方法あるかも
             switch (targetEnv)
             {
                 case ConfigEnvironment.Development:
