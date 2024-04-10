@@ -5,7 +5,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Cores.DataStores
 {
-    public class OpenAIDataStore : IOpenAIDatastore
+    public class OpenAIDataStore : IOpenAIDataStore
     {
         private IAPIClient _apiClient;
 

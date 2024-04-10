@@ -1,13 +1,17 @@
+using UnityEngine;
+using Zenject;
+using API;
+using API.Interfaces;
 using Cores.Presenters;
 using Cores.Presenters.Interfaces;
 using Cores.UseCases;
 using Cores.UseCases.Interfaces;
 using Cores.Models;
-using UnityEngine;
-using Zenject;
 using Cores.Models.Interfaces;
-using API;
-using API.Interfaces;
+using Cores.Repositories;
+using Cores.Repositories.Interfaces;
+using Cores.DataStores;
+using Cores.DataStores.Interfaces;
 
 namespace Installers
 {
@@ -37,6 +41,12 @@ namespace Installers
       // UseCase
       Container.Bind<ICharacterBehaviorUseCase>().To<CharacterBehaviorUseCase>().AsCached().IfNotBound();
       Container.Bind<IVRMSelectionUseCase>().To<VRMSelectionUseCase>().AsCached().IfNotBound();
+
+      // Repository
+      Container.Bind<IOpenAIRepository>().To<OpenAIRepository>().AsCached().IfNotBound();
+
+      // DataStore
+      Container.Bind<IOpenAIDataStore>().To<OpenAIDataStore>().AsCached().IfNotBound();
 
       // Presenter
       Container.Bind<IVRMSelectionPresenter>().To<VRMSelectionPresenter>().AsCached().IfNotBound();
