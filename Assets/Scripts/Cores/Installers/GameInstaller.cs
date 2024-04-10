@@ -6,6 +6,8 @@ using Cores.Models;
 using UnityEngine;
 using Zenject;
 using Cores.Models.Interfaces;
+using API;
+using API.Interfaces;
 
 namespace Installers
 {
@@ -25,6 +27,9 @@ namespace Installers
       // {
       //     main.SetActive(false);
       // }
+
+      // API
+      Container.Bind<IAPIClient>().To<APIClient>().AsCached().IfNotBound();
 
       // Model
       Container.Bind<ISpawningCharactersModel>().To<SpawningCharactersModel>().AsCached().IfNotBound();
