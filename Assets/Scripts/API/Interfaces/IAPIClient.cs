@@ -5,6 +5,6 @@ namespace API.Interfaces
 {
     public interface IAPIClient
     {
-        UniTask<OpenAISpeechToTextResponse> GetOpenAISpeechToTextAsync(byte[] audioData, string language = "ja");
+        UniTask<OpenAISpeechToTextResponse> PostOpenAISpeechToTextAsync(byte[] audioData, string language = "ja");
     }
 }

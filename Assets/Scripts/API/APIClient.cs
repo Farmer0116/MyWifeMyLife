@@ -15,7 +15,7 @@ namespace API
 
         const string _openAISpeechToTextEndpoint = "https://api.openai.com/v1/audio/transcriptions";
 
-        public async UniTask<OpenAISpeechToTextResponse> GetOpenAISpeechToTextAsync(byte[] audioData, string language = "ja")
+        public async UniTask<OpenAISpeechToTextResponse> PostOpenAISpeechToTextAsync(byte[] audioData, string language = "ja")
         {
             var formData = new List<IMultipartFormSection>();
             formData.Add(new MultipartFormDataSection("model", "whisper-1"));
