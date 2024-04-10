@@ -7,16 +7,16 @@ namespace Cores.UseCases
     public class ConversationManagementUseCase : IConversationManagementUseCase
     {
         private ISpawningCharactersModel _spawningCharactersModel;
-        private IPlayerSpeechModel _playerSpeechModel;
+        private IPlayerConversationModel _playerConversationModel;
 
         public ConversationManagementUseCase
         (
             ISpawningCharactersModel spawningCharactersModel,
-            IPlayerSpeechModel playerSpeechModel
+            IPlayerConversationModel playerConversationModel
         )
         {
             _spawningCharactersModel = spawningCharactersModel;
-            _playerSpeechModel = playerSpeechModel;
+            _playerConversationModel = playerConversationModel;
         }
 
         public async UniTask Begin()

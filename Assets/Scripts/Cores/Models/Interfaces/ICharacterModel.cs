@@ -17,7 +17,7 @@ namespace Cores.Models.Interfaces
         float HearingRange { get; set; }
         string NaturePrompt { get; set; }
         string TonePrompt { get; set; }
-        
+
         List<string> ConversationHistory { get; }
         GameObject CharacterInstance { get; }
 
