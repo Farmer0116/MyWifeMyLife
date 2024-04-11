@@ -10,16 +10,19 @@ namespace Mains
   {
     private ICharacterBehaviorUseCase _characterBehaviorUseCase;
     private IVRMSelectionUseCase _vrmSelectionUseCase;
+    private IConversationManagementUseCase _conversationManagementUseCase;
 
     [Inject]
     private void construct
     (
       ICharacterBehaviorUseCase characterBehaviorUseCase,
-      IVRMSelectionUseCase vrmSelectionUseCase
+      IVRMSelectionUseCase vrmSelectionUseCase,
+      IConversationManagementUseCase conversationManagementUseCase
     )
     {
       _characterBehaviorUseCase = characterBehaviorUseCase;
       _vrmSelectionUseCase = vrmSelectionUseCase;
+      _conversationManagementUseCase = conversationManagementUseCase;
     }
 
     private async void Awake()
@@ -28,6 +31,7 @@ namespace Mains
       {
         await _characterBehaviorUseCase.Begin();
         await _vrmSelectionUseCase.Begin();
+        await _conversationManagementUseCase.Begin();
       }
       catch (Exception e)
       {

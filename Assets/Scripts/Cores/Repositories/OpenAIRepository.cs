@@ -1,22 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
+using API.Dto;
+using Cores.DataStores.Interfaces;
 using Cores.Repositories.Interfaces;
-using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 namespace Cores.Repositories
 {
     public class OpenAIRepository : IOpenAIRepository
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        private IOpenAIDataStore _openAIDataStore { get; }
 
+        public OpenAIRepository
+        (
+            IOpenAIDataStore openAIDataStore
+        )
+        {
+            _openAIDataStore = openAIDataStore;
         }
 
-        // Update is called once per frame
-        void Update()
+        public async UniTask<OpenAISpeechToTextResponse> GetTranscription(byte[] audioData, string language = "ja")
         {
-
+            return await _openAIDataStore.GetTranscription(audioData, language);
         }
     }
 }
