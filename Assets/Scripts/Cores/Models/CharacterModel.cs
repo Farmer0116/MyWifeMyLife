@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cores.Models.Interfaces;
+using Structures;
+using Types;
 using UniRx;
 using UnityEngine;
 using Utils;
@@ -79,10 +81,10 @@ namespace Cores.Models
         private string _tonePrompt;
 
         // その他
-        public List<string> ConversationHistory { get { return _conversationHistory; } set { _conversationHistory = value; } }
+        public List<ConversationInfo> ConversationHistory { get { return _conversationHistory; } set { _conversationHistory = value; } }
         public GameObject CharacterInstance { get { return _characterInstance; } set { _characterInstance = value; } }
 
-        private List<string> _conversationHistory = new List<string>();
+        private List<ConversationInfo> _conversationHistory = new List<ConversationInfo>();
         private GameObject _characterInstance = null;
 
         // 機能
@@ -90,14 +92,12 @@ namespace Cores.Models
         public Subject<GameObject> OnDespawnSubject => _onDespawnSubject;
         public Subject<string> OnTalkSubject => _onTalkSubject;
         public Subject<string> OnListenSubject => _onListenSubject;
-        public Subject<string> OnMemorizeConversation => _onMemorizeConversation;
         public Subject<Unit> OnForgetConversation => _onForgetConversation;
 
         private Subject<GameObject> _onSpawnSubject = new Subject<GameObject>();
         private Subject<GameObject> _onDespawnSubject = new Subject<GameObject>();
         private Subject<string> _onTalkSubject = new Subject<string>();
         private Subject<string> _onListenSubject = new Subject<string>();
-        private Subject<string> _onMemorizeConversation = new Subject<string>();
         private Subject<Unit> _onForgetConversation = new Subject<Unit>();
 
         public async Task<GameObject> SpawnAsync(Vector3 position, Quaternion rotation, Vector3 scale)
@@ -132,6 +132,7 @@ namespace Cores.Models
 #if UNITY_EDITOR
             Debug.Log($"{_name}が「{talkingText}。」と話します");
 #endif
+            _conversationHistory.Add(new ConversationInfo(SpeakerType.NPC, talkingText));
             _onTalkSubject.OnNext(talkingText);
         }
 
@@ -140,16 +141,8 @@ namespace Cores.Models
 #if UNITY_EDITOR
             Debug.Log($"{_name}が「{listeningText}。」と聞き取ります");
 #endif
+            _conversationHistory.Add(new ConversationInfo(SpeakerType.Player, listeningText));
             _onListenSubject.OnNext(listeningText);
-        }
-
-        public void MemorizeConversation(string conversationText)
-        {
-#if UNITY_EDITOR
-            Debug.Log($"{_name}が会話内容「{conversationText}。」を記憶します");
-#endif
-            _conversationHistory.Add(conversationText);
-            _onMemorizeConversation.OnNext(conversationText);
         }
 
         public void ForgetConversation()

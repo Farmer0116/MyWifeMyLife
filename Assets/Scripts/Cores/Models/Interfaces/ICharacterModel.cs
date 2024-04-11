@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Structures;
 using UniRx;
 using UnityEngine;
 
@@ -18,21 +19,19 @@ namespace Cores.Models.Interfaces
         string NaturePrompt { get; set; }
         string TonePrompt { get; set; }
 
-        List<string> ConversationHistory { get; }
+        List<ConversationInfo> ConversationHistory { get; }
         GameObject CharacterInstance { get; }
 
         Subject<GameObject> OnSpawnSubject { get; }
         Subject<GameObject> OnDespawnSubject { get; }
         Subject<string> OnTalkSubject { get; }
         Subject<string> OnListenSubject { get; }
-        Subject<string> OnMemorizeConversation { get; }
         Subject<Unit> OnForgetConversation { get; }
 
         Task<GameObject> SpawnAsync(Vector3 position, Quaternion rotation, Vector3 scale);
         void Despawn();
         void Talk(string talkingText);
         void Listen(string listeningText);
-        void MemorizeConversation(string conversationText);
         void ForgetConversation();
     }
 }
