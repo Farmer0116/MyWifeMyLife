@@ -28,7 +28,7 @@ namespace Cores.UseCases
 
         public async UniTask Begin()
         {
-            // var wavBytes = File.ReadAllBytes("C:/Users/kubot/Documents/Unity/MyWifeMyLife/Assets/Resources/Audio/ohayou_test_04.wav");
+            // var wavBytes = File.ReadAllBytes("path");
             // OpenAISpeechToTextResponse transcriptionText = await _openAIRepository.GetTranscription(wavBytes);
             // Debug.Log(transcriptionText.text);
         }
