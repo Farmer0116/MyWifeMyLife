@@ -43,6 +43,7 @@ namespace Installers
       Container.Bind<ICharacterBehaviorUseCase>().To<CharacterBehaviorUseCase>().AsCached().IfNotBound();
       Container.Bind<IVRMSelectionUseCase>().To<VRMSelectionUseCase>().AsCached().IfNotBound();
       Container.Bind<IConversationManagementUseCase>().To<ConversationManagementUseCase>().AsCached().IfNotBound();
+      Container.Bind<IPlayerTalkingUseCase>().To<PlayerTalkingUseCase>().AsCached().IfNotBound();
 
       // Repository
       Container.Bind<IOpenAIRepository>().To<OpenAIRepository>().AsCached().IfNotBound();
