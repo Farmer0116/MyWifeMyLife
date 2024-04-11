@@ -37,10 +37,12 @@ namespace Installers
 
       // Model
       Container.Bind<ISpawningCharactersModel>().To<SpawningCharactersModel>().AsCached().IfNotBound();
+      Container.Bind<IPlayerConversationModel>().To<PlayerConversationModel>().AsCached().IfNotBound();
 
       // UseCase
       Container.Bind<ICharacterBehaviorUseCase>().To<CharacterBehaviorUseCase>().AsCached().IfNotBound();
       Container.Bind<IVRMSelectionUseCase>().To<VRMSelectionUseCase>().AsCached().IfNotBound();
+      Container.Bind<IConversationManagementUseCase>().To<ConversationManagementUseCase>().AsCached().IfNotBound();
 
       // Repository
       Container.Bind<IOpenAIRepository>().To<OpenAIRepository>().AsCached().IfNotBound();

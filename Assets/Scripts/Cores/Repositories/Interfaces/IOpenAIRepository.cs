@@ -1,21 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using API.Dto;
+using Cysharp.Threading.Tasks;
 
 namespace Cores.Repositories.Interfaces
 {
     public interface IOpenAIRepository
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        UniTask<OpenAISpeechToTextResponse> GetTranscription(byte[] audioData, string language = "ja");
     }
 }
