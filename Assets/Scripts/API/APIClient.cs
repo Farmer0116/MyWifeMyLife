@@ -28,13 +28,11 @@ namespace API
 
                 var asyncOperation = request.SendWebRequest();
                 await UniTask.WaitUntil(() => asyncOperation.isDone);
-
                 if (request.result != UnityWebRequest.Result.Success)
                 {
                     Debug.LogError(request.error);
                     return null;
                 }
-
                 var response = JsonUtility.FromJson<OpenAISpeechToTextResponse>(request.downloadHandler.text);
                 return response;
             }
