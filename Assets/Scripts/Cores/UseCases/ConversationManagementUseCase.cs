@@ -4,6 +4,7 @@ using Cores.Repositories.Interfaces;
 using Cores.UseCases.Interfaces;
 using Cysharp.Threading.Tasks;
 using System.IO;
+using API.Dto;
 
 namespace Cores.UseCases
 {
@@ -27,9 +28,9 @@ namespace Cores.UseCases
 
         public async UniTask Begin()
         {
-            Debug.Log("文字起こしテスト");
-            var audioSource =  File.ReadAllBytes("C:/Users/kubota.daichi20/Documents/Personal/MyWifeMyLife/Assets/Resources/Audio/ohayou_test_04.wav");
-            Debug.Log(audioSource);
+            // var wavBytes = File.ReadAllBytes("C:/Users/kubot/Documents/Unity/MyWifeMyLife/Assets/Resources/Audio/ohayou_test_04.wav");
+            // OpenAISpeechToTextResponse transcriptionText = await _openAIRepository.GetTranscription(wavBytes);
+            // Debug.Log(transcriptionText.text);
         }
 
         public void Finish()
