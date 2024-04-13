@@ -77,7 +77,8 @@ namespace Cores.UseCases
                 });
 
                 // デスポーン時のイベント
-                _characterModel.OnDespawnSubject.Subscribe(root => {
+                _characterModel.OnDespawnSubject.Subscribe(root =>
+                {
                     _spawningCharactersModel.Characters.Remove(_characterModel);
                 });
 

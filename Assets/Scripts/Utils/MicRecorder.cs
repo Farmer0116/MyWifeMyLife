@@ -7,9 +7,6 @@ namespace Utils
 {
     public class MicRecorder
     {
-        // マイクの開始・終了管理
-        bool flagMicRecordStart = false;
-
         // マイクデバイスがキャッチできたかどうか
         bool catchedMicDevice = false;
 
@@ -38,9 +35,6 @@ namespace Utils
 
         // Wav データ
         byte[] dataWav;
-
-        // OpenAIAPIKey
-        string OpenAIAPIKey = "apiKey";
 
         public void Launch(string recordingTargetMicDeviceName)
         {

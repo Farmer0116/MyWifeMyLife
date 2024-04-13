@@ -2,8 +2,6 @@ using UnityEngine;
 using Zenject;
 using API;
 using API.Interfaces;
-using Cores.Presenters;
-using Cores.Presenters.Interfaces;
 using Cores.UseCases;
 using Cores.UseCases.Interfaces;
 using Cores.Models;
@@ -50,9 +48,6 @@ namespace Installers
 
       // DataStore
       Container.Bind<IOpenAIDataStore>().To<OpenAIDataStore>().AsCached().IfNotBound();
-
-      // Presenter
-      Container.Bind<IVRMSelectionPresenter>().To<VRMSelectionPresenter>().AsCached().IfNotBound();
 
       // Factory
       Container.BindFactory<CharacterModel.CharacterModelParam, CharacterModel, CharacterModel.Factory>();
