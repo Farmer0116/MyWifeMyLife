@@ -10,16 +10,22 @@ namespace Mains
   {
     private ICharacterBehaviorUseCase _characterBehaviorUseCase;
     private IVRMSelectionUseCase _vrmSelectionUseCase;
+    private IConversationManagementUseCase _conversationManagementUseCase;
+    private IPlayerTalkingUseCase _playerTalkingUseCase;
 
     [Inject]
     private void construct
     (
       ICharacterBehaviorUseCase characterBehaviorUseCase,
-      IVRMSelectionUseCase vrmSelectionUseCase
+      IVRMSelectionUseCase vrmSelectionUseCase,
+      IConversationManagementUseCase conversationManagementUseCase,
+      IPlayerTalkingUseCase playerTalkingUseCase
     )
     {
       _characterBehaviorUseCase = characterBehaviorUseCase;
       _vrmSelectionUseCase = vrmSelectionUseCase;
+      _conversationManagementUseCase = conversationManagementUseCase;
+      _playerTalkingUseCase = playerTalkingUseCase;
     }
 
     private async void Awake()
@@ -28,6 +34,8 @@ namespace Mains
       {
         await _characterBehaviorUseCase.Begin();
         await _vrmSelectionUseCase.Begin();
+        await _conversationManagementUseCase.Begin();
+        await _playerTalkingUseCase.Begin();
       }
       catch (Exception e)
       {

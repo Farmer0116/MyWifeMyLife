@@ -13,7 +13,6 @@ namespace Configs
     [Serializable]
     public class OpenAIApiConfig
     {
-        public string BaseUrl = "";
         public string SecretKey = "";
     }
 }

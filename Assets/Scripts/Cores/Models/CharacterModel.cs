@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cores.Models.Interfaces;
+using Structures;
+using Types;
 using UniRx;
 using UnityEngine;
 using Utils;
@@ -8,6 +10,9 @@ using Zenject;
 
 namespace Cores.Models
 {
+    /// <summary>
+    /// キャラクタに関するモデル
+    /// </summary>
     public class CharacterModel : ICharacterModel
     {
         // 初期化パラメータ
@@ -17,6 +22,7 @@ namespace Cores.Models
             public string Name;
             public string VrmPath;
             public int TalkSpeed;
+            public float HearingRange;
             public string NaturePrompt;
             public string TonePrompt;
 
@@ -26,6 +32,7 @@ namespace Cores.Models
                 string name = "default",
                 string vrmPath = "Assets/Resources/Character/Character_1.vrm",
                 int talkSpeed = 1,
+                float hearingRange = 2.5f,
                 string naturePrompt = "",
                 string tonePrompt = ""
             )
@@ -34,6 +41,7 @@ namespace Cores.Models
                 Name = name;
                 VrmPath = vrmPath;
                 TalkSpeed = talkSpeed;
+                HearingRange = hearingRange;
                 NaturePrompt = naturePrompt;
                 TonePrompt = tonePrompt;
             }
@@ -50,6 +58,7 @@ namespace Cores.Models
             _name = characterModelParam.Name;
             _vrmPath = characterModelParam.VrmPath;
             _talkSpeed = characterModelParam.TalkSpeed;
+            _hearingRange = characterModelParam.HearingRange;
             _naturePrompt = characterModelParam.NaturePrompt;
             _tonePrompt = characterModelParam.TonePrompt;
         }
@@ -59,6 +68,7 @@ namespace Cores.Models
         public string Name { get { return _name; } set { _name = value; } }
         public string VrmPath { get { return _vrmPath; } set { _vrmPath = value; } }
         public int TalkSpeed { get { return _talkSpeed; } set { _talkSpeed = value; } }
+        public float HearingRange { get { return _hearingRange; } set { _hearingRange = value; } }
         public string NaturePrompt { get { return _naturePrompt; } set { _naturePrompt = value; } }
         public string TonePrompt { get { return _tonePrompt; } set { _tonePrompt = value; } }
 
@@ -66,14 +76,15 @@ namespace Cores.Models
         private string _name;
         private string _vrmPath;
         private int _talkSpeed;
+        private float _hearingRange;
         private string _naturePrompt;
         private string _tonePrompt;
 
         // その他
-        public List<string> ConversationHistory { get { return _conversationHistory; } set { _conversationHistory = value; } }
+        public List<ConversationInfo> ConversationHistory { get { return _conversationHistory; } set { _conversationHistory = value; } }
         public GameObject CharacterInstance { get { return _characterInstance; } set { _characterInstance = value; } }
 
-        private List<string> _conversationHistory = new List<string>();
+        private List<ConversationInfo> _conversationHistory = new List<ConversationInfo>();
         private GameObject _characterInstance = null;
 
         // 機能
@@ -81,17 +92,15 @@ namespace Cores.Models
         public Subject<GameObject> OnDespawnSubject => _onDespawnSubject;
         public Subject<string> OnTalkSubject => _onTalkSubject;
         public Subject<string> OnListenSubject => _onListenSubject;
-        public Subject<string> OnMemorizeConversation => _onMemorizeConversation;
         public Subject<Unit> OnForgetConversation => _onForgetConversation;
 
         private Subject<GameObject> _onSpawnSubject = new Subject<GameObject>();
         private Subject<GameObject> _onDespawnSubject = new Subject<GameObject>();
         private Subject<string> _onTalkSubject = new Subject<string>();
         private Subject<string> _onListenSubject = new Subject<string>();
-        private Subject<string> _onMemorizeConversation = new Subject<string>();
         private Subject<Unit> _onForgetConversation = new Subject<Unit>();
 
-        public async Task<GameObject> Spawn(Vector3 position, Quaternion rotation, Vector3 scale)
+        public async Task<GameObject> SpawnAsync(Vector3 position, Quaternion rotation, Vector3 scale)
         {
 #if UNITY_EDITOR
             Debug.Log($"{_name}を{position}に{rotation}を向いて{scale}のサイズで生成します");
@@ -110,6 +119,7 @@ namespace Cores.Models
             {
                 OnDespawnSubject.OnNext(_characterInstance);
                 GameObject.Destroy(_characterInstance);
+                _characterInstance = null;
             }
             else
             {
@@ -122,6 +132,7 @@ namespace Cores.Models
 #if UNITY_EDITOR
             Debug.Log($"{_name}が「{talkingText}。」と話します");
 #endif
+            _conversationHistory.Add(new ConversationInfo(SpeakerType.NPC, talkingText));
             _onTalkSubject.OnNext(talkingText);
         }
 
@@ -130,16 +141,8 @@ namespace Cores.Models
 #if UNITY_EDITOR
             Debug.Log($"{_name}が「{listeningText}。」と聞き取ります");
 #endif
+            _conversationHistory.Add(new ConversationInfo(SpeakerType.Player, listeningText));
             _onListenSubject.OnNext(listeningText);
-        }
-
-        public void MemorizeConversation(string conversationText)
-        {
-#if UNITY_EDITOR
-            Debug.Log($"{_name}が会話内容「{conversationText}。」を記憶します");
-#endif
-            _conversationHistory.Add(conversationText);
-            _onMemorizeConversation.OnNext(conversationText);
         }
 
         public void ForgetConversation()

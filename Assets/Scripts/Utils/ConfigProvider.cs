@@ -30,7 +30,7 @@ namespace Configs
         /// <summary>
         /// OpenAIのAPI設定
         /// </summary>
-        public static OpenAIApiConfig OpenAIApi
+        public static OpenAIApiConfig OpenAIApiConfig
         {
             get { return ConfigComponent.Config.OpenAIApiConfig; }
         }
