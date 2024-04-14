@@ -2407,12 +2407,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Talking Text
-
-'
+  m_text: Talking Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a21ab9f7bc96a634c89c91de46449a23, type: 2}
-  m_sharedMaterial: {fileID: 8624467838871402232, guid: a21ab9f7bc96a634c89c91de46449a23,
+  m_fontAsset: {fileID: 11400000, guid: 1b49521a593780140ab98a5973e9712d, type: 2}
+  m_sharedMaterial: {fileID: -430860878484519825, guid: 1b49521a593780140ab98a5973e9712d,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
