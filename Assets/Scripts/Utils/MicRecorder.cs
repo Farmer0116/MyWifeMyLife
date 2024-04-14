@@ -7,16 +7,8 @@ namespace Utils
 {
     public class MicRecorder
     {
-        // マイクデバイスがキャッチできたかどうか
-        bool catchedMicDevice = false;
-
         // 現在録音するマイクデバイス名
-        string currentRecordingMicDeviceName = "null";
-
-        // // PC の録音のターゲットになるマイクデバイス名
-        // // これはお使いのデバイスで変わります
-        // // 完全一致でないと受け取れないので注意
-        // string recordingTargetMicDeviceName = "MicName";
+        string currentRecordingMicDeviceName = "";
 
         // ヘッダーサイズ
         int HeaderByteSize = 44;
@@ -38,6 +30,9 @@ namespace Utils
 
         public void Launch(string recordingTargetMicDeviceName)
         {
+            // マイクデバイスがキャッチできたかどうか
+            bool catchedMicDevice = false;
+
             // マイクデバイスを探す
             foreach (string device in Microphone.devices)
             {
@@ -75,7 +70,6 @@ namespace Utils
         {
             // マイクの停止
             Microphone.End(currentRecordingMicDeviceName);
-            Debug.Log($"WAV データ作成開始");
 
             // using を使ってメモリ開放を自動で行う
             using (MemoryStream currentMemoryStream = new MemoryStream())
@@ -141,8 +135,6 @@ namespace Utils
                     byte[] bufData = BitConverter.GetBytes((short)(f * short.MaxValue));
                     currentMemoryStream.Write(bufData, 0, bufData.Length);
                 }
-
-                Debug.Log($"WAV データ作成完了");
 
                 dataWav = currentMemoryStream.ToArray();
 

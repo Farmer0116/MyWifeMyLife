@@ -1,10 +1,7 @@
-using UnityEngine;
 using Cores.Models.Interfaces;
 using Cores.Repositories.Interfaces;
 using Cores.UseCases.Interfaces;
 using Cysharp.Threading.Tasks;
-using System.IO;
-using API.Dto;
 
 namespace Cores.UseCases
 {
@@ -28,9 +25,6 @@ namespace Cores.UseCases
 
         public async UniTask Begin()
         {
-            // var wavBytes = File.ReadAllBytes("path");
-            // OpenAISpeechToTextResponse transcriptionText = await _openAIRepository.GetTranscription(wavBytes);
-            // Debug.Log(transcriptionText.text);
         }
 
         public void Finish()

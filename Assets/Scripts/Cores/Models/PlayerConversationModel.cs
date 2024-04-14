@@ -13,7 +13,7 @@ namespace Cores.Models
     public class PlayerConversationModel : IPlayerConversationModel
     {
         public List<ConversationInfo> ConversationHistory { get { return _conversationHistory; } }
-        private List<ConversationInfo> _conversationHistory;
+        private List<ConversationInfo> _conversationHistory = new List<ConversationInfo>();
 
         public Subject<string> OnTalkSubject => _onTalkSubject;
         public Subject<string> OnListenSubject => _onListenSubject;
