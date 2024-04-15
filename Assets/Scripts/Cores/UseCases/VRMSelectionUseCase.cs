@@ -14,6 +14,7 @@ namespace Cores.UseCases
         private ISpawningCharactersModel _spawningCharactersModel;
         private ICharacterModel _characterModel;
         private IVRMSelectionPresenter _vrmSelectionPresenter;
+        private CompositeDisposable _spawningDisposables = new CompositeDisposable();
         private CompositeDisposable _disposables = new CompositeDisposable();
 
         public VRMSelectionUseCase
@@ -74,13 +75,13 @@ namespace Cores.UseCases
 
                     _spawningCharactersModel.Characters.Add(_characterModel);
                     _vrmSelectionPresenter.ValidSpawnButton();
-                });
+                }).AddTo(_spawningDisposables);
 
                 // デスポーン時のイベント
                 _characterModel.OnDespawnSubject.Subscribe(root =>
                 {
                     _spawningCharactersModel.Characters.Remove(_characterModel);
-                });
+                }).AddTo(_spawningDisposables);
 
                 // スポーン
                 await _characterModel.SpawnAsync(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0), new Vector3(1, 1, 1));
@@ -90,6 +91,7 @@ namespace Cores.UseCases
         public void Finish()
         {
             _disposables.Dispose();
+            _spawningDisposables.Dispose();
         }
     }
 }
