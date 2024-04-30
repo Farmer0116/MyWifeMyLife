@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using API.Dto;
 using Cores.DataStores.Interfaces;
 using Cores.Repositories.Interfaces;
 using Cysharp.Threading.Tasks;
+using Structures;
 
 namespace Cores.Repositories
 {
@@ -17,9 +19,14 @@ namespace Cores.Repositories
             _openAIDataStore = openAIDataStore;
         }
 
-        public async UniTask<OpenAISpeechToTextResponse> GetTranscription(byte[] audioData, string language = "ja")
+        public async UniTask<OpenAIGenerateTextResponse> GenerateAnswerAsync(List<MessageInfo> messages)
         {
-            return await _openAIDataStore.GetTranscription(audioData, language);
+            return await _openAIDataStore.GenerateAnswerAsync(messages);
+        }
+
+        public async UniTask<OpenAISpeechToTextResponse> GenerateTranscriptionAsync(byte[] audioData, string language = "ja")
+        {
+            return await _openAIDataStore.GenerateTranscriptionAsync(audioData, language);
         }
     }
 }

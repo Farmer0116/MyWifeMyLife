@@ -19,8 +19,9 @@ namespace Cores.Models.Interfaces
         string NaturePrompt { get; set; }
         string TonePrompt { get; set; }
 
-        List<ConversationInfo> ConversationHistory { get; }
+        List<MessageInfo> ConversationHistory { get; }
         GameObject CharacterInstance { get; }
+        CompositeDisposable DespawnDisposables { get; }
 
         Subject<GameObject> OnSpawnSubject { get; }
         Subject<GameObject> OnDespawnSubject { get; }

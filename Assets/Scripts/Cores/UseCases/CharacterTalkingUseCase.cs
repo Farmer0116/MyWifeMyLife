@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-using UnityEngine;
 using UniRx;
-using System;
+using Cysharp.Threading.Tasks;
 using Cores.UseCases.Interfaces;
 using Cores.Models.Interfaces;
+using Cores.Repositories.Interfaces;
 
 namespace Cores.UseCases
 {
@@ -13,31 +10,37 @@ namespace Cores.UseCases
     {
         private ISpawningCharactersModel _spawningCharactersModel;
         private IPlayerConversationModel _playerConversationModel;
+        private IOpenAIRepository _openAIRepository;
 
         private CompositeDisposable _disposables = new CompositeDisposable();
 
         public CharacterTalkingUseCase
         (
             ISpawningCharactersModel spawningCharactersModel,
-            IPlayerConversationModel playerConversationModel
+            IPlayerConversationModel playerConversationModel,
+            IOpenAIRepository openAIRepository
         )
         {
             _spawningCharactersModel = spawningCharactersModel;
             _playerConversationModel = playerConversationModel;
+            _openAIRepository = openAIRepository;
         }
 
         public async UniTask Begin()
         {
             // キャラクタ追加イベント
-            _spawningCharactersModel.OnAddCharacter.Subscribe(info =>
+            _spawningCharactersModel.OnAddCharacter.Subscribe(character =>
             {
-                _playerConversationModel.OnTalkSubject.Subscribe(text =>
+                character.Value.OnListenSubject.Subscribe(async text =>
                 {
-                    info.Value.Listen(text);
-                }).AddTo(_disposables);
-            }).AddTo(_disposables);
+                    var answer = await _openAIRepository.GenerateAnswerAsync(character.Value.ConversationHistory);
+                }).AddTo(character.Value.DespawnDisposables);
 
-            // Todo: List管理ならdisposeは要素自体（CharaModel）に持たせるべきじゃね？
+                // _playerConversationModel.OnTalkSubject.Subscribe(text =>
+                // {
+                //     character.Value.Listen(text);
+                // }).AddTo(character.Value.DespawnDisposables);
+            }).AddTo(_disposables);
         }
 
         public void Finish()

@@ -28,23 +28,27 @@ namespace Cores.UseCases
         public async UniTask Begin()
         {
             // プレーヤー → キャラクタ
-            _playerConversationModel.OnTalkSubject.Subscribe(text => {
-                foreach(var characterModel in _spawningCharactersModel.Characters)
+            _playerConversationModel.OnTalkSubject.Subscribe(text =>
+            {
+                foreach (var characterModel in _spawningCharactersModel.Characters)
                 {
                     characterModel.Listen(text);
                 }
             }).AddTo(_disposables);
 
             // キャラクタ → プレーヤー
-            _spawningCharactersModel.OnAddCharacter.Subscribe(info => {
-                info.Value.OnTalkSubject.Subscribe(text => {
+            _spawningCharactersModel.OnAddCharacter.Subscribe(character =>
+            {
+                character.Value.OnTalkSubject.Subscribe(text =>
+                {
                     _playerConversationModel.Listen(text);
                 }).AddTo(_disposables);
 
                 // List管理ならdisposeは要素自体（CharaModel）に持たせるべきじゃね？
             });
 
-            _spawningCharactersModel.OnRemoveCharacter.Subscribe(info => {
+            _spawningCharactersModel.OnRemoveCharacter.Subscribe(info =>
+            {
 
             });
         }

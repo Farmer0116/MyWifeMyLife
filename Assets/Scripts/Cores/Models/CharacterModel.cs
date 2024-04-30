@@ -81,11 +81,13 @@ namespace Cores.Models
         private string _tonePrompt;
 
         // その他
-        public List<ConversationInfo> ConversationHistory { get { return _conversationHistory; } set { _conversationHistory = value; } }
+        public List<MessageInfo> ConversationHistory { get { return _conversationHistory; } set { _conversationHistory = value; } }
         public GameObject CharacterInstance { get { return _characterInstance; } set { _characterInstance = value; } }
+        public CompositeDisposable DespawnDisposables { get { return _despawnDisposables; } }
 
-        private List<ConversationInfo> _conversationHistory = new List<ConversationInfo>();
+        private List<MessageInfo> _conversationHistory = new List<MessageInfo>();
         private GameObject _characterInstance = null;
+        private CompositeDisposable _despawnDisposables = new CompositeDisposable();
 
         // 機能
         public Subject<GameObject> OnSpawnSubject => _onSpawnSubject;
@@ -118,6 +120,7 @@ namespace Cores.Models
             if (_characterInstance != null)
             {
                 OnDespawnSubject.OnNext(_characterInstance);
+                DespawnDisposables.Dispose();
                 GameObject.Destroy(_characterInstance);
                 _characterInstance = null;
             }
@@ -132,7 +135,7 @@ namespace Cores.Models
 #if UNITY_EDITOR
             Debug.Log($"{_name}が「{talkingText}。」と話します");
 #endif
-            _conversationHistory.Add(new ConversationInfo(SpeakerType.NPC, talkingText));
+            _conversationHistory.Add(new MessageInfo(SpeakerType.NPC, talkingText));
             _onTalkSubject.OnNext(talkingText);
         }
 
@@ -141,7 +144,7 @@ namespace Cores.Models
 #if UNITY_EDITOR
             Debug.Log($"{_name}が「{listeningText}。」と聞き取ります");
 #endif
-            _conversationHistory.Add(new ConversationInfo(SpeakerType.Player, listeningText));
+            _conversationHistory.Add(new MessageInfo(SpeakerType.Player, listeningText));
             _onListenSubject.OnNext(listeningText);
         }
 
