@@ -51,7 +51,7 @@ namespace Cores.UseCases
             {
                 if (_thresholdDeltaTime > Time.time - startTime)
                 {
-                    Debug.LogError("発声時間が短すぎます");
+                    Debug.LogWarning("発声時間が短すぎます");
                     return;
                 }
 
@@ -59,7 +59,6 @@ namespace Cores.UseCases
                 OpenAISpeechToTextResponse transcriptionText = await _openAIRepository.GenerateTranscriptionAsync(audioByte);
                 _playerConversationModel.Talk(transcriptionText.text);
                 _playerTalkingPresenter.TalkingText.Value = transcriptionText.text;
-                Debug.Log(_playerConversationModel.ConversationHistory.LastOrDefault());
             }).AddTo(_disposables);
         }
 

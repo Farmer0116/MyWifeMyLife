@@ -17,10 +17,14 @@ namespace API
 
         public async UniTask<OpenAIGenerateTextResponse> PostOpenAIGenerateTextAsync(OpenAIGenerateTextRequestBody body)
         {
-            string messagesJson = JsonUtility.ToJson(body);
-            Debug.Log("コンソール：" + messagesJson);
-            // コンソール：{ "messages":[{ "role":"user","content":"同じように苦しませて押し入れの中"}]}
-            string jsonBody = $"{{\"model\":\"{_configProvider.Model}\",\"messages\":\"{messagesJson}\",\"temperature\":1,\"top_p\":1,\"n\":1,\"stream\":false,\"max_tokens\":500,\"presence_penalty\":0,\"frequency_penalty\":0}}";
+            var messagesJson = JsonUtility.ToJson(body);
+
+            int startIndex = messagesJson.IndexOf('[');
+            int endIndex = messagesJson.LastIndexOf(']');
+
+            string messages = messagesJson.Substring(startIndex, endIndex - startIndex + 1);
+
+            string jsonBody = $"{{\"model\":\"{_configProvider.Model}\",\"messages\":{messages},\"temperature\":1,\"top_p\":1,\"n\":1,\"stream\":false,\"max_tokens\":500,\"presence_penalty\":0,\"frequency_penalty\":0}}";
 
             using (UnityWebRequest request = new UnityWebRequest(_openAIGenerateTextEndpoint, "POST"))
             {
