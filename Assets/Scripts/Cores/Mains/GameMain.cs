@@ -5,53 +5,61 @@ using Zenject;
 
 namespace Mains
 {
-  [DefaultExecutionOrder(999)]
-  public class GameMain : MonoBehaviour
-  {
-    private ICharacterBehaviorUseCase _characterBehaviorUseCase;
-    private IVRMSelectionUseCase _vrmSelectionUseCase;
-    private IConversationManagementUseCase _conversationManagementUseCase;
-    private IPlayerTalkingUseCase _playerTalkingUseCase;
-
-    [Inject]
-    private void construct
-    (
-      ICharacterBehaviorUseCase characterBehaviorUseCase,
-      IVRMSelectionUseCase vrmSelectionUseCase,
-      IConversationManagementUseCase conversationManagementUseCase,
-      IPlayerTalkingUseCase playerTalkingUseCase
-    )
+    [DefaultExecutionOrder(999)]
+    public class GameMain : MonoBehaviour
     {
-      _characterBehaviorUseCase = characterBehaviorUseCase;
-      _vrmSelectionUseCase = vrmSelectionUseCase;
-      _conversationManagementUseCase = conversationManagementUseCase;
-      _playerTalkingUseCase = playerTalkingUseCase;
-    }
+        private ICharacterBehaviorUseCase _characterBehaviorUseCase;
+        private IVRMSelectionUseCase _vrmSelectionUseCase;
+        private IConversationManagementUseCase _conversationManagementUseCase;
+        private IPlayerTalkingUseCase _playerTalkingUseCase;
+        private ICharacterTalkingUseCase _characterTalkingUseCase;
+        private IConversationSubtitleUseCase _conversationSubtitleUseCase;
 
-    private async void Awake()
-    {
-      try
-      {
-        await _characterBehaviorUseCase.Begin();
-        await _vrmSelectionUseCase.Begin();
-        await _conversationManagementUseCase.Begin();
-        await _playerTalkingUseCase.Begin();
-      }
-      catch (Exception e)
-      {
-        throw;
-      }
-    }
+        [Inject]
+        private void construct
+        (
+          ICharacterBehaviorUseCase characterBehaviorUseCase,
+          IVRMSelectionUseCase vrmSelectionUseCase,
+          IConversationManagementUseCase conversationManagementUseCase,
+          IPlayerTalkingUseCase playerTalkingUseCase,
+          ICharacterTalkingUseCase characterTalkingUseCase,
+          IConversationSubtitleUseCase conversationSubtitleUseCase
+        )
+        {
+            _characterBehaviorUseCase = characterBehaviorUseCase;
+            _vrmSelectionUseCase = vrmSelectionUseCase;
+            _conversationManagementUseCase = conversationManagementUseCase;
+            _playerTalkingUseCase = playerTalkingUseCase;
+            _characterTalkingUseCase = characterTalkingUseCase;
+            _conversationSubtitleUseCase = conversationSubtitleUseCase;
+        }
 
-    private void Start()
-    {
-      // ========== 初期設定 ==========
-    }
+        private async void Awake()
+        {
+            try
+            {
+                await _characterBehaviorUseCase.Begin();
+                await _vrmSelectionUseCase.Begin();
+                await _conversationManagementUseCase.Begin();
+                await _playerTalkingUseCase.Begin();
+                await _characterTalkingUseCase.Begin();
+                await _conversationSubtitleUseCase.Begin();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
 
-    private void OnDestroy()
-    {
+        private void Start()
+        {
+            // ========== 初期設定 ==========
+        }
+
+        private void OnDestroy()
+        {
+        }
     }
-  }
 }
 
 

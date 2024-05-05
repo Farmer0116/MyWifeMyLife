@@ -12,8 +12,8 @@ namespace Cores.Models
     /// </summary>
     public class PlayerConversationModel : IPlayerConversationModel
     {
-        public List<ConversationInfo> ConversationHistory { get { return _conversationHistory; } }
-        private List<ConversationInfo> _conversationHistory = new List<ConversationInfo>();
+        public List<MessageInfo> ConversationHistory { get { return _conversationHistory; } }
+        private List<MessageInfo> _conversationHistory = new List<MessageInfo>();
 
         public Subject<string> OnTalkSubject => _onTalkSubject;
         public Subject<string> OnListenSubject => _onListenSubject;
@@ -28,7 +28,7 @@ namespace Cores.Models
 #if UNITY_EDITOR
             Debug.Log($"プレーヤーが「{talkingText}。」と話します");
 #endif
-            _conversationHistory.Add(new ConversationInfo(SpeakerType.Player, talkingText));
+            _conversationHistory.Add(new MessageInfo(SpeakerType.Player, talkingText));
             _onTalkSubject.OnNext(talkingText);
         }
 
@@ -37,7 +37,7 @@ namespace Cores.Models
 #if UNITY_EDITOR
             Debug.Log($"プレーヤーが「{listeningText}。」と聞き取ります");
 #endif
-            _conversationHistory.Add(new ConversationInfo(SpeakerType.NPC, listeningText));
+            _conversationHistory.Add(new MessageInfo(SpeakerType.NPC, listeningText));
             _onListenSubject.OnNext(listeningText);
         }
 

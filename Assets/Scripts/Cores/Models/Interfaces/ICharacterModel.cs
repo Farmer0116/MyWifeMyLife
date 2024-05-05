@@ -16,11 +16,11 @@ namespace Cores.Models.Interfaces
         string VrmPath { get; set; }
         int TalkSpeed { get; set; }
         float HearingRange { get; set; }
-        string NaturePrompt { get; set; }
-        string TonePrompt { get; set; }
+        string CharacterPrompt { get; set; }
 
-        List<ConversationInfo> ConversationHistory { get; }
+        List<MessageInfo> ConversationHistory { get; }
         GameObject CharacterInstance { get; }
+        CompositeDisposable DespawnDisposables { get; }
 
         Subject<GameObject> OnSpawnSubject { get; }
         Subject<GameObject> OnDespawnSubject { get; }

@@ -14,5 +14,6 @@ namespace Configs
     public class OpenAIApiConfig
     {
         public string SecretKey = "";
+        public string Model = "";
     }
 }

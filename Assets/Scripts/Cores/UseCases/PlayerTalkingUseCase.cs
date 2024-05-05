@@ -1,5 +1,3 @@
-using System.Linq;
-using API.Dto;
 using Cores.Models.Interfaces;
 using Cores.Presenters.Interfaces;
 using Cores.Repositories.Interfaces;
@@ -14,8 +12,8 @@ namespace Cores.UseCases
     public class PlayerTalkingUseCase : IPlayerTalkingUseCase
     {
         private IPlayerTalkingPresenter _playerTalkingPresenter;
-        private IOpenAIRepository _openAIRepository;
         private IPlayerConversationModel _playerConversationModel;
+        private IOpenAIRepository _openAIRepository;
 
         private CompositeDisposable _disposables = new CompositeDisposable();
 
@@ -25,13 +23,13 @@ namespace Cores.UseCases
         public PlayerTalkingUseCase
         (
             IPlayerTalkingPresenter playerTalkingPresenter,
-            IOpenAIRepository openAIRepository,
-            IPlayerConversationModel playerConversationModel
+            IPlayerConversationModel playerConversationModel,
+            IOpenAIRepository openAIRepository
         )
         {
             _playerTalkingPresenter = playerTalkingPresenter;
-            _openAIRepository = openAIRepository;
             _playerConversationModel = playerConversationModel;
+            _openAIRepository = openAIRepository;
         }
 
         public async UniTask Begin()
@@ -51,21 +49,18 @@ namespace Cores.UseCases
             {
                 if (_thresholdDeltaTime > Time.time - startTime)
                 {
-                    Debug.LogError("発声時間が短すぎます");
+                    Debug.LogWarning("発声時間が短すぎます");
                     return;
                 }
 
                 var audioByte = recorder.RecordStop();
-                OpenAISpeechToTextResponse transcriptionText = await _openAIRepository.GetTranscription(audioByte);
-                _playerConversationModel.Talk(transcriptionText.text);
-                _playerTalkingPresenter.TalkingText.Value = transcriptionText.text;
-                Debug.Log(_playerConversationModel.ConversationHistory.LastOrDefault());
+                var transcriptionText = await _openAIRepository.GenerateTranscriptionAsync(audioByte);
+                _playerConversationModel.Talk(transcriptionText.Text);
             }).AddTo(_disposables);
         }
 
         public void Finish()
         {
-            _playerTalkingPresenter.Finish();
             _disposables.Dispose();
         }
     }

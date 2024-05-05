@@ -2,6 +2,7 @@ using System;
 using Cores.Presenters.Interfaces;
 using Cores.Views.Interfaces;
 using UniRx;
+using UnityEngine.Events;
 using Zenject;
 
 namespace Cores.Presenters
@@ -10,6 +11,7 @@ namespace Cores.Presenters
     {
         public IObservable<Unit> OnClickBrowserButton { get; private set; }
         public IObservable<Unit> OnClickSpawnButton { get; private set; }
+        public IObservable<string> OnChangeCharacterPromptText { get; private set; }
 
         private IVRMSelectionView _vrmSelectionView;
 
@@ -23,6 +25,7 @@ namespace Cores.Presenters
 
             OnClickBrowserButton = vrmSelectionView.BrowserButton.onClick.AsObservable();
             OnClickSpawnButton = vrmSelectionView.SpawnButton.onClick.AsObservable();
+            OnChangeCharacterPromptText = vrmSelectionView.CharacterPrompt.onValueChanged.AsObservable();
         }
 
         public void ShowRootUI()
@@ -43,6 +46,11 @@ namespace Cores.Presenters
         public string GetVRMFilePath()
         {
             return _vrmSelectionView.VRMFilePath.text ?? "";
+        }
+
+        public string GetCharacterPrompt()
+        {
+            return _vrmSelectionView.CharacterPrompt.text ?? "";
         }
 
         public void ValidSpawnButton()

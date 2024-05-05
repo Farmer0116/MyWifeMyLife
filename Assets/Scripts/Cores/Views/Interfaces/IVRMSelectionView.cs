@@ -10,5 +10,6 @@ namespace Cores.Views.Interfaces
         Button BrowserButton { get; }
         Button SpawnButton { get; }
         TMP_InputField VRMFilePath { get; }
+        TMP_InputField CharacterPrompt { get; }
     }
 }

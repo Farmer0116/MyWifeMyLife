@@ -9,7 +9,7 @@ namespace Cores.Models.Interfaces
     /// </summary>
     public interface IPlayerConversationModel
     {
-        List<ConversationInfo> ConversationHistory { get; }
+        List<MessageInfo> ConversationHistory { get; }
 
         Subject<string> OnTalkSubject { get; }
         Subject<string> OnListenSubject { get; }

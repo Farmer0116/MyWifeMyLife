@@ -13,44 +13,46 @@ using Cores.DataStores.Interfaces;
 
 namespace Installers
 {
-  public class GameInstaller : MonoInstaller
-  {
-    [field: Header("メイン")]
-    [SerializeField] private GameObject main = default;
-
-    // [SerializeField] private BaseCharacterController baseCharacterController = default;
-    // [SerializeField] private PlayerCamera playerCamera = default;
-
-    public GameObject Main => main;
-
-    public override void InstallBindings()
+    public class GameInstaller : MonoInstaller
     {
-      // if (Container.HasBinding<ITest>() && main != null)
-      // {
-      //     main.SetActive(false);
-      // }
+        [field: Header("メイン")]
+        [SerializeField] private GameObject main = default;
 
-      // API
-      Container.Bind<IAPIClient>().To<APIClient>().AsCached().IfNotBound();
+        // [SerializeField] private BaseCharacterController baseCharacterController = default;
+        // [SerializeField] private PlayerCamera playerCamera = default;
 
-      // Model
-      Container.Bind<ISpawningCharactersModel>().To<SpawningCharactersModel>().AsCached().IfNotBound();
-      Container.Bind<IPlayerConversationModel>().To<PlayerConversationModel>().AsCached().IfNotBound();
+        public GameObject Main => main;
 
-      // UseCase
-      Container.Bind<ICharacterBehaviorUseCase>().To<CharacterBehaviorUseCase>().AsCached().IfNotBound();
-      Container.Bind<IVRMSelectionUseCase>().To<VRMSelectionUseCase>().AsCached().IfNotBound();
-      Container.Bind<IConversationManagementUseCase>().To<ConversationManagementUseCase>().AsCached().IfNotBound();
-      Container.Bind<IPlayerTalkingUseCase>().To<PlayerTalkingUseCase>().AsCached().IfNotBound();
+        public override void InstallBindings()
+        {
+            // if (Container.HasBinding<ITest>() && main != null)
+            // {
+            //     main.SetActive(false);
+            // }
 
-      // Repository
-      Container.Bind<IOpenAIRepository>().To<OpenAIRepository>().AsCached().IfNotBound();
+            // API
+            Container.Bind<IAPIClient>().To<APIClient>().AsCached().IfNotBound();
 
-      // DataStore
-      Container.Bind<IOpenAIDataStore>().To<OpenAIDataStore>().AsCached().IfNotBound();
+            // Model
+            Container.Bind<ISpawningCharactersModel>().To<SpawningCharactersModel>().AsCached().IfNotBound();
+            Container.Bind<IPlayerConversationModel>().To<PlayerConversationModel>().AsCached().IfNotBound();
 
-      // Factory
-      Container.BindFactory<CharacterModel.CharacterModelParam, CharacterModel, CharacterModel.Factory>();
+            // UseCase
+            Container.Bind<ICharacterBehaviorUseCase>().To<CharacterBehaviorUseCase>().AsCached().IfNotBound();
+            Container.Bind<IVRMSelectionUseCase>().To<VRMSelectionUseCase>().AsCached().IfNotBound();
+            Container.Bind<IConversationManagementUseCase>().To<ConversationManagementUseCase>().AsCached().IfNotBound();
+            Container.Bind<IPlayerTalkingUseCase>().To<PlayerTalkingUseCase>().AsCached().IfNotBound();
+            Container.Bind<ICharacterTalkingUseCase>().To<CharacterTalkingUseCase>().AsCached().IfNotBound();
+            Container.Bind<IConversationSubtitleUseCase>().To<ConversationSubtitleUseCase>().AsCached().IfNotBound();
+
+            // Repository
+            Container.Bind<IOpenAIRepository>().To<OpenAIRepository>().AsCached().IfNotBound();
+
+            // DataStore
+            Container.Bind<IOpenAIDataStore>().To<OpenAIDataStore>().AsCached().IfNotBound();
+
+            // Factory
+            Container.BindFactory<CharacterModel.CharacterModelParam, CharacterModel, CharacterModel.Factory>();
+        }
     }
-  }
 }

@@ -7,11 +7,13 @@ namespace Cores.Presenters.Interfaces
     {
         IObservable<Unit> OnClickBrowserButton { get; }
         IObservable<Unit> OnClickSpawnButton { get; }
+        IObservable<string> OnChangeCharacterPromptText { get; }
 
         void ShowRootUI();
         void HideRootUI();
         bool GetRootUIState();
         string GetVRMFilePath();
+        string GetCharacterPrompt();
         void ValidSpawnButton();
         void InvalidSpawnButton();
     }

@@ -10,7 +10,7 @@ namespace Configs
     {
         private readonly string basePath = "Configs/";
 
-        [SerializeField] private ConfigEnvironment targetEnv = ConfigEnvironment.Development;
+        [SerializeField] private ConfigEnvironmentType targetEnv = ConfigEnvironmentType.Development;
         private ApplicationConfigs config;
 
         void Awake()
@@ -36,7 +36,7 @@ namespace Configs
         {
             switch (targetEnv)
             {
-                case ConfigEnvironment.Development:
+                case ConfigEnvironmentType.Development:
                     Debug.Log("Load 'Development' conf");
                     return Resources.Load<ApplicationConfigs>(basePath + "Development");
                 default:
@@ -44,10 +44,11 @@ namespace Configs
             }
         }
     }
+
     /// <summary>
     /// 環境一覧
     /// </summary>
-    public enum ConfigEnvironment
+    public enum ConfigEnvironmentType
     {
         Development
     }
