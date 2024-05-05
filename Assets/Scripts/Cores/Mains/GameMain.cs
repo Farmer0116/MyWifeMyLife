@@ -13,6 +13,7 @@ namespace Mains
         private IConversationManagementUseCase _conversationManagementUseCase;
         private IPlayerTalkingUseCase _playerTalkingUseCase;
         private ICharacterTalkingUseCase _characterTalkingUseCase;
+        private IConversationSubtitleUseCase _conversationSubtitleUseCase;
 
         [Inject]
         private void construct
@@ -21,7 +22,8 @@ namespace Mains
           IVRMSelectionUseCase vrmSelectionUseCase,
           IConversationManagementUseCase conversationManagementUseCase,
           IPlayerTalkingUseCase playerTalkingUseCase,
-          ICharacterTalkingUseCase characterTalkingUseCase
+          ICharacterTalkingUseCase characterTalkingUseCase,
+          IConversationSubtitleUseCase conversationSubtitleUseCase
         )
         {
             _characterBehaviorUseCase = characterBehaviorUseCase;
@@ -29,6 +31,7 @@ namespace Mains
             _conversationManagementUseCase = conversationManagementUseCase;
             _playerTalkingUseCase = playerTalkingUseCase;
             _characterTalkingUseCase = characterTalkingUseCase;
+            _conversationSubtitleUseCase = conversationSubtitleUseCase;
         }
 
         private async void Awake()
@@ -40,6 +43,7 @@ namespace Mains
                 await _conversationManagementUseCase.Begin();
                 await _playerTalkingUseCase.Begin();
                 await _characterTalkingUseCase.Begin();
+                await _conversationSubtitleUseCase.Begin();
             }
             catch (Exception e)
             {

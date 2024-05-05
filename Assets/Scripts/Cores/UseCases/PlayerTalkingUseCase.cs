@@ -1,5 +1,3 @@
-using System.Linq;
-using API.Dto;
 using Cores.Models.Interfaces;
 using Cores.Presenters.Interfaces;
 using Cores.Repositories.Interfaces;
@@ -58,13 +56,11 @@ namespace Cores.UseCases
                 var audioByte = recorder.RecordStop();
                 var transcriptionText = await _openAIRepository.GenerateTranscriptionAsync(audioByte);
                 _playerConversationModel.Talk(transcriptionText.Text);
-                _playerTalkingPresenter.TalkingText.Value = transcriptionText.Text;
             }).AddTo(_disposables);
         }
 
         public void Finish()
         {
-            _playerTalkingPresenter.Finish();
             _disposables.Dispose();
         }
     }

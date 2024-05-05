@@ -43,6 +43,7 @@ namespace Installers
             Container.Bind<IConversationManagementUseCase>().To<ConversationManagementUseCase>().AsCached().IfNotBound();
             Container.Bind<IPlayerTalkingUseCase>().To<PlayerTalkingUseCase>().AsCached().IfNotBound();
             Container.Bind<ICharacterTalkingUseCase>().To<CharacterTalkingUseCase>().AsCached().IfNotBound();
+            Container.Bind<IConversationSubtitleUseCase>().To<ConversationSubtitleUseCase>().AsCached().IfNotBound();
 
             // Repository
             Container.Bind<IOpenAIRepository>().To<OpenAIRepository>().AsCached().IfNotBound();
