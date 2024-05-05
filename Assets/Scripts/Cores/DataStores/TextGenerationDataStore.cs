@@ -8,11 +8,11 @@ using Structures;
 
 namespace Cores.DataStores
 {
-    public class OpenAIDataStore : IOpenAIDataStore
+    public class TextGenerationDataStore : ITextGenerationDataStore
     {
         private IAPIClient _apiClient;
 
-        public OpenAIDataStore
+        public TextGenerationDataStore
         (
             IAPIClient apiClient
         )
@@ -45,12 +45,6 @@ namespace Cores.DataStores
             }
 
             var response = await _apiClient.PostOpenAIGenerateTextAsync(bodyMessages);
-            return response;
-        }
-
-        public async UniTask<OpenAISpeechToTextResponse> GenerateTranscriptionAsync(byte[] audioData, string language = "ja")
-        {
-            var response = await _apiClient.PostOpenAISpeechToTextAsync(audioData, language);
             return response;
         }
     }

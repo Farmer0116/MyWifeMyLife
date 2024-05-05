@@ -46,10 +46,12 @@ namespace Installers
             Container.Bind<IConversationSubtitleUseCase>().To<ConversationSubtitleUseCase>().AsCached().IfNotBound();
 
             // Repository
-            Container.Bind<IOpenAIRepository>().To<OpenAIRepository>().AsCached().IfNotBound();
+            Container.Bind<ITextToSpeechRepository>().To<TextToSpeechRepository>().AsCached().IfNotBound();
+            Container.Bind<ITextGenerationRepository>().To<TextGenerationRepository>().AsCached().IfNotBound();
 
             // DataStore
-            Container.Bind<IOpenAIDataStore>().To<OpenAIDataStore>().AsCached().IfNotBound();
+            Container.Bind<ITextToSpeechDataStore>().To<TextToSpeechDataStore>().AsCached().IfNotBound();
+            Container.Bind<ITextGenerationDataStore>().To<TextGenerationDataStore>().AsCached().IfNotBound();
 
             // Factory
             Container.BindFactory<CharacterModel.CharacterModelParam, CharacterModel, CharacterModel.Factory>();

@@ -10,19 +10,16 @@ namespace Cores.UseCases
     {
         private ISpawningCharactersModel _spawningCharactersModel;
         private IPlayerConversationModel _playerConversationModel;
-        private IOpenAIRepository _openAIRepository;
         private CompositeDisposable _disposables = new CompositeDisposable();
 
         public ConversationManagementUseCase
         (
             ISpawningCharactersModel spawningCharactersModel,
-            IPlayerConversationModel playerConversationModel,
-            IOpenAIRepository openAIRepository
+            IPlayerConversationModel playerConversationModel
         )
         {
             _spawningCharactersModel = spawningCharactersModel;
             _playerConversationModel = playerConversationModel;
-            _openAIRepository = openAIRepository;
         }
 
         public async UniTask Begin()
@@ -42,14 +39,7 @@ namespace Cores.UseCases
                 character.Value.OnTalkSubject.Subscribe(text =>
                 {
                     _playerConversationModel.Listen(text);
-                }).AddTo(_disposables);
-
-                // List管理ならdisposeは要素自体（CharaModel）に持たせるべきじゃね？
-            });
-
-            _spawningCharactersModel.OnRemoveCharacter.Subscribe(info =>
-            {
-
+                }).AddTo(character.Value.DespawnDisposables);
             });
         }
 

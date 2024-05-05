@@ -5,9 +5,8 @@ using Structures;
 
 namespace Cores.DataStores.Interfaces
 {
-    public interface IOpenAIDataStore
+    public interface ITextGenerationDataStore
     {
         UniTask<OpenAIGenerateTextResponse> GenerateAnswerAsync(string prompt, List<MessageInfo> messages);
-        UniTask<OpenAISpeechToTextResponse> GenerateTranscriptionAsync(byte[] audioData, string language = "ja");
     }
 }
