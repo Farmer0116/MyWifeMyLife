@@ -3,13 +3,13 @@ using Cysharp.Threading.Tasks;
 using Cores.UseCases.Interfaces;
 using Cores.Models.Interfaces;
 using Cores.Repositories.Interfaces;
+using System.Diagnostics;
 
 namespace Cores.UseCases
 {
     public class CharacterTalkingUseCase : ICharacterTalkingUseCase
     {
         private ISpawningCharactersModel _spawningCharactersModel;
-        private IPlayerConversationModel _playerConversationModel;
         private IOpenAIRepository _openAIRepository;
 
         private CompositeDisposable _disposables = new CompositeDisposable();
@@ -17,12 +17,10 @@ namespace Cores.UseCases
         public CharacterTalkingUseCase
         (
             ISpawningCharactersModel spawningCharactersModel,
-            IPlayerConversationModel playerConversationModel,
             IOpenAIRepository openAIRepository
         )
         {
             _spawningCharactersModel = spawningCharactersModel;
-            _playerConversationModel = playerConversationModel;
             _openAIRepository = openAIRepository;
         }
 
@@ -33,13 +31,9 @@ namespace Cores.UseCases
             {
                 character.Value.OnListenSubject.Subscribe(async text =>
                 {
-                    var answer = await _openAIRepository.GenerateAnswerAsync(character.Value.ConversationHistory);
+                    var data = await _openAIRepository.GenerateAnswerAsync(character.Value.CharacterPrompt, character.Value.ConversationHistory);
+                    character.Value.Talk(data.Text);
                 }).AddTo(character.Value.DespawnDisposables);
-
-                // _playerConversationModel.OnTalkSubject.Subscribe(text =>
-                // {
-                //     character.Value.Listen(text);
-                // }).AddTo(character.Value.DespawnDisposables);
             }).AddTo(_disposables);
         }
 

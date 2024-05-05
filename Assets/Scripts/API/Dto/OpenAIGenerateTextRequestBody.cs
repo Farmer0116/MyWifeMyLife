@@ -33,7 +33,8 @@ namespace API.Dto
 
     public enum RoleType
     {
-        user = 0,
-        system = 1
+        system = 0,
+        user = 1,
+        assistant = 2
     }
 }

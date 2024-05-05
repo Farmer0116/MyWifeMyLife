@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using API.Dto;
+using System.Linq;
 using Cores.DataStores.Interfaces;
 using Cores.Repositories.Interfaces;
 using Cysharp.Threading.Tasks;
@@ -19,14 +19,44 @@ namespace Cores.Repositories
             _openAIDataStore = openAIDataStore;
         }
 
-        public async UniTask<OpenAIGenerateTextResponse> GenerateAnswerAsync(List<MessageInfo> messages)
+        public async UniTask<GenerateTextData> GenerateAnswerAsync(string prompt, List<MessageInfo> messages)
         {
-            return await _openAIDataStore.GenerateAnswerAsync(messages);
+            var response = await _openAIDataStore.GenerateAnswerAsync(prompt, messages);
+            var data = new GenerateTextData(response.choices.Last().message.content);
+            return data;
         }
 
-        public async UniTask<OpenAISpeechToTextResponse> GenerateTranscriptionAsync(byte[] audioData, string language = "ja")
+        public async UniTask<GenerateTranscription> GenerateTranscriptionAsync(byte[] audioData, string language = "ja")
         {
-            return await _openAIDataStore.GenerateTranscriptionAsync(audioData, language);
+            var response = await _openAIDataStore.GenerateTranscriptionAsync(audioData, language);
+            var data = new GenerateTranscription(response.text);
+            return data;
+        }
+    }
+
+    public class GenerateTextData
+    {
+        public string Text { get; set; }
+
+        public GenerateTextData
+        (
+            string text
+        )
+        {
+            Text = text;
+        }
+    }
+
+    public class GenerateTranscription
+    {
+        public string Text { get; set; }
+
+        public GenerateTranscription
+        (
+            string text
+        )
+        {
+            Text = text;
         }
     }
 }

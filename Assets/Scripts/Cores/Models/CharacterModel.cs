@@ -23,8 +23,7 @@ namespace Cores.Models
             public string VrmPath;
             public int TalkSpeed;
             public float HearingRange;
-            public string NaturePrompt;
-            public string TonePrompt;
+            public string CharacterPrompt;
 
             public CharacterModelParam
             (
@@ -33,8 +32,7 @@ namespace Cores.Models
                 string vrmPath = "Assets/Resources/Character/Character_1.vrm",
                 int talkSpeed = 1,
                 float hearingRange = 2.5f,
-                string naturePrompt = "",
-                string tonePrompt = ""
+                string characterPrompt = ""
             )
             {
                 Id = id;
@@ -42,8 +40,7 @@ namespace Cores.Models
                 VrmPath = vrmPath;
                 TalkSpeed = talkSpeed;
                 HearingRange = hearingRange;
-                NaturePrompt = naturePrompt;
-                TonePrompt = tonePrompt;
+                CharacterPrompt = characterPrompt;
             }
         }
 
@@ -59,8 +56,7 @@ namespace Cores.Models
             _vrmPath = characterModelParam.VrmPath;
             _talkSpeed = characterModelParam.TalkSpeed;
             _hearingRange = characterModelParam.HearingRange;
-            _naturePrompt = characterModelParam.NaturePrompt;
-            _tonePrompt = characterModelParam.TonePrompt;
+            _characterPrompt = characterModelParam.CharacterPrompt;
         }
 
         // 初期値
@@ -69,16 +65,14 @@ namespace Cores.Models
         public string VrmPath { get { return _vrmPath; } set { _vrmPath = value; } }
         public int TalkSpeed { get { return _talkSpeed; } set { _talkSpeed = value; } }
         public float HearingRange { get { return _hearingRange; } set { _hearingRange = value; } }
-        public string NaturePrompt { get { return _naturePrompt; } set { _naturePrompt = value; } }
-        public string TonePrompt { get { return _tonePrompt; } set { _tonePrompt = value; } }
+        public string CharacterPrompt { get { return _characterPrompt; } set { _characterPrompt = value; } }
 
         private int _id;
         private string _name;
         private string _vrmPath;
         private int _talkSpeed;
         private float _hearingRange;
-        private string _naturePrompt;
-        private string _tonePrompt;
+        private string _characterPrompt;
 
         // その他
         public List<MessageInfo> ConversationHistory { get { return _conversationHistory; } set { _conversationHistory = value; } }

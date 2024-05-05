@@ -7,7 +7,7 @@ namespace Cores.Repositories.Interfaces
 {
     public interface IOpenAIRepository
     {
-        UniTask<OpenAIGenerateTextResponse> GenerateAnswerAsync(List<MessageInfo> messages);
-        UniTask<OpenAISpeechToTextResponse> GenerateTranscriptionAsync(byte[] audioData, string language = "ja");
+        UniTask<GenerateTextData> GenerateAnswerAsync(string prompt, List<MessageInfo> messages);
+        UniTask<GenerateTranscription> GenerateTranscriptionAsync(byte[] audioData, string language = "ja");
     }
 }

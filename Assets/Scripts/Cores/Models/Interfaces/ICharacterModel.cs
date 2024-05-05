@@ -16,8 +16,7 @@ namespace Cores.Models.Interfaces
         string VrmPath { get; set; }
         int TalkSpeed { get; set; }
         float HearingRange { get; set; }
-        string NaturePrompt { get; set; }
-        string TonePrompt { get; set; }
+        string CharacterPrompt { get; set; }
 
         List<MessageInfo> ConversationHistory { get; }
         GameObject CharacterInstance { get; }

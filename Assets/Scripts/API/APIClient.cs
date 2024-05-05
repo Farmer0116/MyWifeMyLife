@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using API.Dto;
 using API.Interfaces;
 using Configs;
@@ -32,17 +33,17 @@ namespace API
                 request.uploadHandler = new UploadHandlerRaw(bodyRaw);
                 request.downloadHandler = new DownloadHandlerBuffer();
                 request.SetRequestHeader("Content-Type", "application/json");
-                request.SetRequestHeader("Authorization", "Bearer" + _configProvider.SecretKey);
+                request.SetRequestHeader("Authorization", "Bearer " + _configProvider.SecretKey);
 
                 var asyncOperation = await request.SendWebRequest();
 
-                await UniTask.WaitUntil(() => asyncOperation.isDone);
                 if (request.result != UnityWebRequest.Result.Success)
                 {
                     Debug.LogError(request.error);
                     return null;
                 }
                 var response = JsonUtility.FromJson<OpenAIGenerateTextResponse>(request.downloadHandler.text);
+
                 return response;
             }
         }

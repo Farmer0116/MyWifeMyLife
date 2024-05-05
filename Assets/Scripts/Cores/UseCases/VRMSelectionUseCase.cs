@@ -14,7 +14,6 @@ namespace Cores.UseCases
         private ISpawningCharactersModel _spawningCharactersModel;
         private ICharacterModel _characterModel;
         private IVRMSelectionPresenter _vrmSelectionPresenter;
-        private CompositeDisposable _spawningDisposables = new CompositeDisposable();
         private CompositeDisposable _disposables = new CompositeDisposable();
 
         public VRMSelectionUseCase
@@ -62,36 +61,52 @@ namespace Cores.UseCases
                 var path = _vrmSelectionPresenter.GetVRMFilePath();
                 if (!string.IsNullOrEmpty(path)) _characterModel.VrmPath = path;
 
+                // todo : 一時対応 ================================
+                _vrmSelectionPresenter.OnChangeCharacterPromptText.Subscribe(_ =>
+                {
+                    setCharacterPrompt(_characterModel);
+                }).AddTo(_characterModel.DespawnDisposables);
+                // ===============================================
+
                 // スポーン時のイベント
                 _characterModel.OnSpawnSubject.Subscribe(root =>
                 {
-                    // todo : 一時対応
+                    // todo : 一時対応 ================================
                     Animator animator = root.GetComponent<Animator>();
                     if (animator)
                     {
                         var controller = Resources.Load<RuntimeAnimatorController>("Character/CharacterLocomotions");
                         animator.runtimeAnimatorController = controller;
                     }
+                    setCharacterPrompt(_characterModel);
+                    // ===============================================
 
                     _spawningCharactersModel.Characters.Add(_characterModel);
                     _vrmSelectionPresenter.ValidSpawnButton();
-                }).AddTo(_spawningDisposables);
+                }).AddTo(_characterModel.DespawnDisposables);
 
                 // デスポーン時のイベント
                 _characterModel.OnDespawnSubject.Subscribe(root =>
                 {
                     _spawningCharactersModel.Characters.Remove(_characterModel);
-                }).AddTo(_spawningDisposables);
+                }).AddTo(_characterModel.DespawnDisposables);
 
                 // スポーン
                 await _characterModel.SpawnAsync(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0), new Vector3(1, 1, 1));
             }).AddTo(_disposables);
         }
 
+        private void setCharacterPrompt(ICharacterModel characterModel)
+        {
+            if (!string.IsNullOrEmpty(_vrmSelectionPresenter.GetCharacterPrompt()))
+            {
+                characterModel.CharacterPrompt = _vrmSelectionPresenter.GetCharacterPrompt();
+            }
+        }
+
         public void Finish()
         {
             _disposables.Dispose();
-            _spawningDisposables.Dispose();
         }
     }
 }

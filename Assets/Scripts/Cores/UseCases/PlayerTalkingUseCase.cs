@@ -56,9 +56,9 @@ namespace Cores.UseCases
                 }
 
                 var audioByte = recorder.RecordStop();
-                OpenAISpeechToTextResponse transcriptionText = await _openAIRepository.GenerateTranscriptionAsync(audioByte);
-                _playerConversationModel.Talk(transcriptionText.text);
-                _playerTalkingPresenter.TalkingText.Value = transcriptionText.text;
+                var transcriptionText = await _openAIRepository.GenerateTranscriptionAsync(audioByte);
+                _playerConversationModel.Talk(transcriptionText.Text);
+                _playerTalkingPresenter.TalkingText.Value = transcriptionText.Text;
             }).AddTo(_disposables);
         }
 

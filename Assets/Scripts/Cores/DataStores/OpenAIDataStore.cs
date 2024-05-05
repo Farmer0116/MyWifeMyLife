@@ -5,6 +5,8 @@ using Cores.DataStores.Interfaces;
 using Cysharp.Threading.Tasks;
 using Types;
 using Structures;
+using System;
+using System.Diagnostics;
 
 namespace Cores.DataStores
 {
@@ -20,9 +22,14 @@ namespace Cores.DataStores
             _apiClient = apiClient;
         }
 
-        public async UniTask<OpenAIGenerateTextResponse> GenerateAnswerAsync(List<MessageInfo> messages)
+        public async UniTask<OpenAIGenerateTextResponse> GenerateAnswerAsync(string prompt, List<MessageInfo> messages)
         {
             var bodyMessages = new OpenAIGenerateTextRequestBody();
+
+            if (!string.IsNullOrEmpty(prompt))
+            {
+                bodyMessages.messages.Add(new OpenAIGenerateTextRequestBodyMessage(RoleType.system.ToString(), prompt));
+            }
 
             foreach (var message in messages)
             {
