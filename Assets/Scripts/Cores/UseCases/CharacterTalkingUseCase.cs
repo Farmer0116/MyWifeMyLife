@@ -3,25 +3,24 @@ using Cysharp.Threading.Tasks;
 using Cores.UseCases.Interfaces;
 using Cores.Models.Interfaces;
 using Cores.Repositories.Interfaces;
-using System.Diagnostics;
 
 namespace Cores.UseCases
 {
     public class CharacterTalkingUseCase : ICharacterTalkingUseCase
     {
         private ISpawningCharactersModel _spawningCharactersModel;
-        private IOpenAIRepository _openAIRepository;
+        private ITextGenerationRepository _textGenerationRepository;
 
         private CompositeDisposable _disposables = new CompositeDisposable();
 
         public CharacterTalkingUseCase
         (
             ISpawningCharactersModel spawningCharactersModel,
-            IOpenAIRepository openAIRepository
+            ITextGenerationRepository textGenerationRepository
         )
         {
             _spawningCharactersModel = spawningCharactersModel;
-            _openAIRepository = openAIRepository;
+            _textGenerationRepository = textGenerationRepository;
         }
 
         public async UniTask Begin()
@@ -31,7 +30,7 @@ namespace Cores.UseCases
             {
                 character.Value.OnListenSubject.Subscribe(async text =>
                 {
-                    var data = await _openAIRepository.GenerateAnswerAsync(character.Value.CharacterPrompt, character.Value.ConversationHistory);
+                    var data = await _textGenerationRepository.GenerateAnswerAsync(character.Value.CharacterPrompt, character.Value.ConversationHistory);
                     character.Value.Talk(data.Text);
                 }).AddTo(character.Value.DespawnDisposables);
             }).AddTo(_disposables);

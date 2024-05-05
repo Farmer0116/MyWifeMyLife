@@ -33,7 +33,7 @@ namespace Cores.UseCases
             // 更新処理
             Observable.EveryUpdate().Subscribe(_ =>
             {
-                if (Input.GetKeyDown(KeyCode.C))
+                if (Input.GetKeyDown(KeyCode.H))
                 {
                     if (_vrmSelectionPresenter.GetRootUIState())
                     {

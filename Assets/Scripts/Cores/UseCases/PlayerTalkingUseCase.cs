@@ -13,7 +13,7 @@ namespace Cores.UseCases
     {
         private IPlayerTalkingPresenter _playerTalkingPresenter;
         private IPlayerConversationModel _playerConversationModel;
-        private IOpenAIRepository _openAIRepository;
+        private ITextToSpeechRepository _textToSpeechRepository;
 
         private CompositeDisposable _disposables = new CompositeDisposable();
 
@@ -24,12 +24,12 @@ namespace Cores.UseCases
         (
             IPlayerTalkingPresenter playerTalkingPresenter,
             IPlayerConversationModel playerConversationModel,
-            IOpenAIRepository openAIRepository
+            ITextToSpeechRepository textToSpeechRepository
         )
         {
             _playerTalkingPresenter = playerTalkingPresenter;
             _playerConversationModel = playerConversationModel;
-            _openAIRepository = openAIRepository;
+            _textToSpeechRepository = textToSpeechRepository;
         }
 
         public async UniTask Begin()
@@ -54,7 +54,7 @@ namespace Cores.UseCases
                 }
 
                 var audioByte = recorder.RecordStop();
-                var transcriptionText = await _openAIRepository.GenerateTranscriptionAsync(audioByte);
+                var transcriptionText = await _textToSpeechRepository.GenerateTranscriptionAsync(audioByte);
                 _playerConversationModel.Talk(transcriptionText.Text);
             }).AddTo(_disposables);
         }
