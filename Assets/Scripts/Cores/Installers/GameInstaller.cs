@@ -46,11 +46,11 @@ namespace Installers
             Container.Bind<IConversationSubtitleUseCase>().To<ConversationSubtitleUseCase>().AsCached().IfNotBound();
 
             // Repository
-            Container.Bind<ITextToSpeechRepository>().To<TextToSpeechRepository>().AsCached().IfNotBound();
+            Container.Bind<ISpeechToTextRepository>().To<SpeechToTextRepository>().AsCached().IfNotBound();
             Container.Bind<ITextGenerationRepository>().To<TextGenerationRepository>().AsCached().IfNotBound();
 
             // DataStore
-            Container.Bind<ITextToSpeechDataStore>().To<TextToSpeechDataStore>().AsCached().IfNotBound();
+            Container.Bind<ISpeechToTextDataStore>().To<SpeechToTextDataStore>().AsCached().IfNotBound();
             Container.Bind<ITextGenerationDataStore>().To<TextGenerationDataStore>().AsCached().IfNotBound();
 
             // Factory

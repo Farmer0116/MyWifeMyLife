@@ -4,21 +4,21 @@ using Cysharp.Threading.Tasks;
 
 namespace Cores.Repositories
 {
-    public class TextToSpeechRepository : ITextToSpeechRepository
+    public class SpeechToTextRepository : ISpeechToTextRepository
     {
-        private ITextToSpeechDataStore _textToSpeechDataStore { get; }
+        private ISpeechToTextDataStore _speechToTextDataStore { get; }
 
-        public TextToSpeechRepository
+        public SpeechToTextRepository
         (
-            ITextToSpeechDataStore textToSpeechDataStore
+            ISpeechToTextDataStore speechToTextDataStore
         )
         {
-            _textToSpeechDataStore = textToSpeechDataStore;
+            _speechToTextDataStore = speechToTextDataStore;
         }
 
         public async UniTask<GenerateTranscription> GenerateTranscriptionAsync(byte[] audioData, string language = "ja")
         {
-            var response = await _textToSpeechDataStore.GenerateTranscriptionAsync(audioData, language);
+            var response = await _speechToTextDataStore.GenerateTranscriptionAsync(audioData, language);
             var data = new GenerateTranscription(response.text);
             return data;
         }

@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Cores.Repositories.Interfaces
 {
-    public interface ITextToSpeechRepository
+    public interface ISpeechToTextRepository
     {
         UniTask<GenerateTranscription> GenerateTranscriptionAsync(byte[] audioData, string language = "ja");
     }
