@@ -5,11 +5,11 @@ using Cysharp.Threading.Tasks;
 
 namespace Cores.DataStores
 {
-    public class TextToSpeechDataStore : ITextToSpeechDataStore
+    public class SpeechToTextDataStore : ISpeechToTextDataStore
     {
         private IAPIClient _apiClient;
 
-        public TextToSpeechDataStore
+        public SpeechToTextDataStore
         (
             IAPIClient apiClient
         )
