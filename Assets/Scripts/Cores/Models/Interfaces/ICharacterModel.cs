@@ -17,6 +17,7 @@ namespace Cores.Models.Interfaces
         int TalkSpeed { get; set; }
         float HearingRange { get; set; }
         string CharacterPrompt { get; set; }
+        SpeakerSelectionInfo SpeakerSelectionInfo { get; set; }
 
         List<MessageInfo> ConversationHistory { get; }
         GameObject CharacterInstance { get; }
