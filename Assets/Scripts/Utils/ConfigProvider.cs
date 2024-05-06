@@ -34,5 +34,13 @@ namespace Configs
         {
             get { return ConfigComponent.Config.OpenAIApiConfig; }
         }
+
+        /// <summary>
+        /// VoicevoxのAPI設定
+        /// </summary>
+        public static VoicevoxApiConfig VoicevoxApiConfig
+        {
+            get { return ConfigComponent.Config.VoicevoxApiConfig; }
+        }
     }
 }

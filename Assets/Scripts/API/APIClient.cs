@@ -11,10 +11,13 @@ namespace API
 {
     public class APIClient : IAPIClient
     {
-        private OpenAIApiConfig _configProvider = ConfigProvider.OpenAIApiConfig;
+        private OpenAIApiConfig _openAIApiConfig = ConfigProvider.OpenAIApiConfig;
+        private VoicevoxApiConfig _voicevoxApiConfig = ConfigProvider.VoicevoxApiConfig;
 
         const string _openAISpeechToTextEndpoint = "https://api.openai.com/v1/audio/transcriptions";
         const string _openAIGenerateTextEndpoint = "https://api.openai.com/v1/chat/completions";
+        const string _voicevoxTextToSpeechEndpoint = "https://deprecatedapis.tts.quest/v2/voicevox/audio";
+        const string _voicevoxSpeakerEndpoint = "https://deprecatedapis.tts.quest/v2/voicevox/speakers";
 
         public async UniTask<OpenAIGenerateTextResponse> PostOpenAIGenerateTextAsync(OpenAIGenerateTextRequestBody body)
         {
@@ -25,7 +28,7 @@ namespace API
 
             string messages = messagesJson.Substring(startIndex, endIndex - startIndex + 1);
 
-            string jsonBody = $"{{\"model\":\"{_configProvider.Model}\",\"messages\":{messages},\"temperature\":1,\"top_p\":1,\"n\":1,\"stream\":false,\"max_tokens\":500,\"presence_penalty\":0,\"frequency_penalty\":0}}";
+            string jsonBody = $"{{\"model\":\"{_openAIApiConfig.Model}\",\"messages\":{messages},\"temperature\":1,\"top_p\":1,\"n\":1,\"stream\":false,\"max_tokens\":500,\"presence_penalty\":0,\"frequency_penalty\":0}}";
 
             using (UnityWebRequest request = new UnityWebRequest(_openAIGenerateTextEndpoint, "POST"))
             {
@@ -33,7 +36,7 @@ namespace API
                 request.uploadHandler = new UploadHandlerRaw(bodyRaw);
                 request.downloadHandler = new DownloadHandlerBuffer();
                 request.SetRequestHeader("Content-Type", "application/json");
-                request.SetRequestHeader("Authorization", "Bearer " + _configProvider.SecretKey);
+                request.SetRequestHeader("Authorization", "Bearer " + _openAIApiConfig.SecretKey);
 
                 var asyncOperation = await request.SendWebRequest();
 
@@ -57,7 +60,7 @@ namespace API
 
             using (UnityWebRequest request = UnityWebRequest.Post(_openAISpeechToTextEndpoint, formData))
             {
-                request.SetRequestHeader("Authorization", "Bearer " + _configProvider.SecretKey);
+                request.SetRequestHeader("Authorization", "Bearer " + _openAIApiConfig.SecretKey);
 
                 var asyncOperation = await request.SendWebRequest();
 
@@ -71,5 +74,30 @@ namespace API
                 return response;
             }
         }
+
+        public async UniTask<VoicevoxSpeakerListResponse> PostVoicevoxSpeakersAsync()
+        {
+            var formData = new List<IMultipartFormSection>();
+            formData.Add(new MultipartFormDataSection("key", _voicevoxApiConfig.ApiKey));
+
+            using (UnityWebRequest request = UnityWebRequest.Post(_openAISpeechToTextEndpoint, formData))
+            {
+                var asyncOperation = await request.SendWebRequest();
+
+                await UniTask.WaitUntil(() => asyncOperation.isDone);
+                if (request.result != UnityWebRequest.Result.Success)
+                {
+                    Debug.LogError(request.error);
+                    return null;
+                }
+                var response = JsonUtility.FromJson<VoicevoxSpeakerListResponse>(request.downloadHandler.text);
+                return response;
+            }
+        }
+
+        // public async UniTask<VoicevoxTextToSpeechResponse> PostVoicevoxTextToSpeechAsync()
+        // {
+
+        // }
     }
 }

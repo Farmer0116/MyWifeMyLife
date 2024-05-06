@@ -8,6 +8,7 @@ namespace Configs
     public class ApplicationConfigs : ScriptableObject
     {
         public OpenAIApiConfig OpenAIApiConfig;
+        public VoicevoxApiConfig VoicevoxApiConfig;
     }
 
     [Serializable]
@@ -15,5 +16,11 @@ namespace Configs
     {
         public string SecretKey = "";
         public string Model = "";
+    }
+
+    [Serializable]
+    public class VoicevoxApiConfig
+    {
+        public string ApiKey = "";
     }
 }
