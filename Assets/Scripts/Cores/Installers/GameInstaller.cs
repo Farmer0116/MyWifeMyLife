@@ -48,10 +48,12 @@ namespace Installers
             // Repository
             Container.Bind<ISpeechToTextRepository>().To<SpeechToTextRepository>().AsCached().IfNotBound();
             Container.Bind<ITextGenerationRepository>().To<TextGenerationRepository>().AsCached().IfNotBound();
+            Container.Bind<IVoicevoxSpeakerRepository>().To<VoicevoxSpeakerRepository>().AsCached().IfNotBound();
 
             // DataStore
             Container.Bind<ISpeechToTextDataStore>().To<SpeechToTextDataStore>().AsCached().IfNotBound();
             Container.Bind<ITextGenerationDataStore>().To<TextGenerationDataStore>().AsCached().IfNotBound();
+            Container.Bind<IVoicevoxSpeakerDataStore>().To<VoicevoxSpeakerDataStore>().AsCached().IfNotBound();
 
             // Factory
             Container.BindFactory<CharacterModel.CharacterModelParam, CharacterModel, CharacterModel.Factory>();

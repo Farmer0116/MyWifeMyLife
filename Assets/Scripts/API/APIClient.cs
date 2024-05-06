@@ -16,7 +16,7 @@ namespace API
 
         const string _openAISpeechToTextEndpoint = "https://api.openai.com/v1/audio/transcriptions";
         const string _openAIGenerateTextEndpoint = "https://api.openai.com/v1/chat/completions";
-        const string _voicevoxTextToSpeechEndpoint = "https://deprecatedapis.tts.quest/v2/voicevox/audio";
+        const string _voicevoxTextToSpeechEndpoint = "";
         const string _voicevoxSpeakerEndpoint = "https://deprecatedapis.tts.quest/v2/voicevox/speakers";
 
         public async UniTask<OpenAIGenerateTextResponse> PostOpenAIGenerateTextAsync(OpenAIGenerateTextRequestBody body)
@@ -75,12 +75,11 @@ namespace API
             }
         }
 
-        public async UniTask<VoicevoxSpeakerListResponse> PostVoicevoxSpeakersAsync()
+        public async UniTask<VoicevoxSpeakerListResponse> GetVoicevoxSpeakersAsync()
         {
-            var formData = new List<IMultipartFormSection>();
-            formData.Add(new MultipartFormDataSection("key", _voicevoxApiConfig.ApiKey));
+            var path = _voicevoxSpeakerEndpoint + "/?key=" + _voicevoxApiConfig.ApiKey;
 
-            using (UnityWebRequest request = UnityWebRequest.Post(_openAISpeechToTextEndpoint, formData))
+            using (UnityWebRequest request = UnityWebRequest.Get(path))
             {
                 var asyncOperation = await request.SendWebRequest();
 
@@ -90,7 +89,10 @@ namespace API
                     Debug.LogError(request.error);
                     return null;
                 }
-                var response = JsonUtility.FromJson<VoicevoxSpeakerListResponse>(request.downloadHandler.text);
+
+                var json = "{" + $"\"root\": {request.downloadHandler.text}" + "}";
+
+                var response = JsonUtility.FromJson<VoicevoxSpeakerListResponse>(json);
                 return response;
             }
         }

@@ -1,6 +1,7 @@
 using Cores.Repositories.Interfaces;
 using Cores.DataStores.Interfaces;
 using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Cores.Repositories
 {
@@ -16,15 +17,20 @@ namespace Cores.Repositories
             _voicevoxSpeakerDataStore = voicevoxSpeakerDataStore;
         }
 
-        public async UniTask<VoicevoxSpeakerInfo> GetVoicevoxSpeakersAsync()
+        public async UniTask<List<VoicevoxSpeaker>> GetVoicevoxSpeakersAsync()
         {
             var response = await _voicevoxSpeakerDataStore.GetVoicevoxSpeakersAsync();
-            var speakers = new VoicevoxSpeakerInfo();
+            var speakers = new List<VoicevoxSpeaker>();
 
-            foreach (var speakerInfo in response.styles)
+            foreach (var speaker in response.root)
             {
-                var speaker = new VoicevoxSpeaker(speakerInfo.name, speakerInfo.id, speakerInfo.type);
-                speakers.Styles.Add(speaker);
+                var speakerEl = new VoicevoxSpeaker(speaker.name);
+                foreach (var style in speaker.styles)
+                {
+                    var styleEl = new VoicevoxSpeakerStyle(style.name, style.id, style.type);
+                    speakerEl.Styles.Add(styleEl);
+                }
+                speakers.Add(speakerEl);
             }
 
             return speakers;

@@ -5,6 +5,9 @@ using UniRx;
 using UnityEngine;
 using Cores.UseCases.Interfaces;
 using Cores.Models.Interfaces;
+using API.Interfaces;
+using Cores.Repositories.Interfaces;
+using System.Collections.Generic;
 
 namespace Cores.UseCases
 {
@@ -14,18 +17,21 @@ namespace Cores.UseCases
         private ISpawningCharactersModel _spawningCharactersModel;
         private ICharacterModel _characterModel;
         private IVRMSelectionPresenter _vrmSelectionPresenter;
+        private IVoicevoxSpeakerRepository _voicevoxSpeakerRepository;
         private CompositeDisposable _disposables = new CompositeDisposable();
 
         public VRMSelectionUseCase
         (
             CharacterModel.Factory factory,
             ISpawningCharactersModel spawningCharactersModel,
-            IVRMSelectionPresenter vrmSelectionPresenter
+            IVRMSelectionPresenter vrmSelectionPresenter,
+            IVoicevoxSpeakerRepository voicevoxSpeakerRepository
         )
         {
             _factory = factory;
             _spawningCharactersModel = spawningCharactersModel;
             _vrmSelectionPresenter = vrmSelectionPresenter;
+            _voicevoxSpeakerRepository = voicevoxSpeakerRepository;
         }
 
         public async UniTask Begin()
@@ -46,9 +52,17 @@ namespace Cores.UseCases
                 }
             }).AddTo(_disposables);
 
-            // ブラウザボタンイベント
-            _vrmSelectionPresenter.OnClickBrowserButton.Subscribe(_ =>
+            // 話者情報設定
+            var speakers = new List<string>();
+            var speakerInfo = await _voicevoxSpeakerRepository.GetVoicevoxSpeakersAsync();
+            foreach (var speaker in speakerInfo)
             {
+                speakers.Add(speaker.Name);
+            }
+            _vrmSelectionPresenter.SetSpeaker(speakers);
+            _vrmSelectionPresenter.OnChangeSpeaker.Subscribe(index =>
+            {
+                Debug.Log(speakerInfo[index].Name);
             }).AddTo(_disposables);
 
             // スポーンボタンイベント

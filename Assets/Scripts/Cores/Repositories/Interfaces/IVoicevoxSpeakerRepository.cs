@@ -1,28 +1,32 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 
 namespace Cores.Repositories.Interfaces
 {
     public interface IVoicevoxSpeakerRepository
     {
-    }
-
-    public class VoicevoxSpeakerInfo
-    {
-        public List<VoicevoxSpeaker> Styles;
-
-        public VoicevoxSpeakerInfo()
-        {
-            Styles = new List<VoicevoxSpeaker>();
-        }
+        UniTask<List<VoicevoxSpeaker>> GetVoicevoxSpeakersAsync();
     }
 
     public class VoicevoxSpeaker
     {
         public string Name;
+        public List<VoicevoxSpeakerStyle> Styles;
+
+        public VoicevoxSpeaker(string name)
+        {
+            Name = name;
+            Styles = new List<VoicevoxSpeakerStyle>();
+        }
+    }
+
+    public class VoicevoxSpeakerStyle
+    {
+        public string Name;
         public int Id;
         public string Type;
 
-        public VoicevoxSpeaker
+        public VoicevoxSpeakerStyle
         (
             string name,
             int id,

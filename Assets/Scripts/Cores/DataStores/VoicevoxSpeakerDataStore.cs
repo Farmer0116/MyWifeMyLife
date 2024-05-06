@@ -19,7 +19,7 @@ namespace Cores.DataStores
 
         public async UniTask<VoicevoxSpeakerListResponse> GetVoicevoxSpeakersAsync()
         {
-            return await _apiClient.PostVoicevoxSpeakersAsync();
+            return await _apiClient.GetVoicevoxSpeakersAsync();
         }
     }
 }

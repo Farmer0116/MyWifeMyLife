@@ -7,6 +7,6 @@ namespace API.Interfaces
     {
         UniTask<OpenAIGenerateTextResponse> PostOpenAIGenerateTextAsync(OpenAIGenerateTextRequestBody body);
         UniTask<OpenAISpeechToTextResponse> PostOpenAISpeechToTextAsync(byte[] audioData, string language = "ja");
-        UniTask<VoicevoxSpeakerListResponse> PostVoicevoxSpeakersAsync();
+        UniTask<VoicevoxSpeakerListResponse> GetVoicevoxSpeakersAsync();
     }
 }
