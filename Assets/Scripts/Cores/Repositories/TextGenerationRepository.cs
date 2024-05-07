@@ -19,11 +19,10 @@ namespace Cores.Repositories
             _textGenerationDataStore = textGenerationDataStore;
         }
 
-        public async UniTask<TextGenerationData> GenerateAnswerAsync(string prompt, List<MessageInfo> messages)
+        public async UniTask<string> GenerateAnswerAsync(string prompt, List<MessageInfo> messages)
         {
             var response = await _textGenerationDataStore.GenerateAnswerAsync(prompt, messages);
-            var data = new TextGenerationData(response.choices.Last().message.content);
-            return data;
+            return response.choices.Last().message.content;
         }
     }
 }

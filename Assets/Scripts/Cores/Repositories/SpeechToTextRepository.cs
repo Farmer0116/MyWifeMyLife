@@ -16,11 +16,10 @@ namespace Cores.Repositories
             _speechToTextDataStore = speechToTextDataStore;
         }
 
-        public async UniTask<GenerateTranscription> GenerateTranscriptionAsync(byte[] audioData, string language = "ja")
+        public async UniTask<string> GenerateSpeechToTextAsync(byte[] audioData, string language = "ja")
         {
-            var response = await _speechToTextDataStore.GenerateTranscriptionAsync(audioData, language);
-            var data = new GenerateTranscription(response.text);
-            return data;
+            var response = await _speechToTextDataStore.GenerateSpeechToTextAsync(audioData, language);
+            return response.text;
         }
     }
 }

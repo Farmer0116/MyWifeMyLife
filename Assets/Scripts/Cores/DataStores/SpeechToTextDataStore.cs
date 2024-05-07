@@ -17,7 +17,7 @@ namespace Cores.DataStores
             _apiClient = apiClient;
         }
 
-        public async UniTask<OpenAISpeechToTextResponse> GenerateTranscriptionAsync(byte[] audioData, string language = "ja")
+        public async UniTask<OpenAISpeechToTextResponse> GenerateSpeechToTextAsync(byte[] audioData, string language = "ja")
         {
             var response = await _apiClient.PostOpenAISpeechToTextAsync(audioData, language);
             return response;

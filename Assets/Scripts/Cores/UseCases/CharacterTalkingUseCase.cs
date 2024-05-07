@@ -30,8 +30,8 @@ namespace Cores.UseCases
             {
                 character.Value.OnListenSubject.Subscribe(async text =>
                 {
-                    var data = await _textGenerationRepository.GenerateAnswerAsync(character.Value.CharacterPrompt, character.Value.ConversationHistory);
-                    character.Value.Talk(data.Text);
+                    var answer = await _textGenerationRepository.GenerateAnswerAsync(character.Value.CharacterPrompt, character.Value.ConversationHistory);
+                    character.Value.Talk(answer);
                 }).AddTo(character.Value.DespawnDisposables);
             }).AddTo(_disposables);
         }

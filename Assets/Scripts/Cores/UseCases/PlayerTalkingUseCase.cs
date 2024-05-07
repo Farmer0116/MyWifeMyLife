@@ -54,8 +54,8 @@ namespace Cores.UseCases
                 }
 
                 var audioByte = recorder.RecordStop();
-                var transcriptionText = await _speechToTextRepository.GenerateTranscriptionAsync(audioByte);
-                _playerConversationModel.Talk(transcriptionText.Text);
+                var text = await _speechToTextRepository.GenerateSpeechToTextAsync(audioByte);
+                _playerConversationModel.Talk(text);
             }).AddTo(_disposables);
         }
 

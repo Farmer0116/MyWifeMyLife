@@ -4,19 +4,6 @@ namespace Cores.Repositories.Interfaces
 {
     public interface ISpeechToTextRepository
     {
-        UniTask<GenerateTranscription> GenerateTranscriptionAsync(byte[] audioData, string language = "ja");
-    }
-
-    public class GenerateTranscription
-    {
-        public string Text { get; set; }
-
-        public GenerateTranscription
-        (
-            string text
-        )
-        {
-            Text = text;
-        }
+        UniTask<string> GenerateSpeechToTextAsync(byte[] audioData, string language = "ja");
     }
 }

@@ -1,7 +1,9 @@
+using UnityEngine;
+
 namespace API.Dto
 {
     public class VoicevoxTextToSpeechResponse
     {
-        public byte[] audio;
+        public AudioClip audioClip;
     }
 }

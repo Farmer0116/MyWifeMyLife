@@ -16,8 +16,8 @@ namespace API
 
         const string _openAISpeechToTextEndpoint = "https://api.openai.com/v1/audio/transcriptions";
         const string _openAIGenerateTextEndpoint = "https://api.openai.com/v1/chat/completions";
-        const string _voicevoxTextToSpeechEndpoint = "";
         const string _voicevoxSpeakerEndpoint = "https://deprecatedapis.tts.quest/v2/voicevox/speakers";
+        const string _voicevoxTextToSpeechEndpoint = "https://deprecatedapis.tts.quest/v2/voicevox/audio";
 
         public async UniTask<OpenAIGenerateTextResponse> PostOpenAIGenerateTextAsync(OpenAIGenerateTextRequestBody body)
         {
@@ -97,9 +97,28 @@ namespace API
             }
         }
 
-        // public async UniTask<VoicevoxTextToSpeechResponse> PostVoicevoxTextToSpeechAsync()
-        // {
+        public async UniTask<VoicevoxTextToSpeechResponse> PostVoicevoxTextToSpeechAsync(int speaker, string text, int intpitch = 0, float intonationScale = 1, float speed = 1)
+        {
+            var queryString = $"/?key={_voicevoxApiConfig.ApiKey}&speaker={speaker}&pitch={intpitch}&intonationScale={intonationScale}&speed={speed}&text={text}";
+            var path = _voicevoxTextToSpeechEndpoint + queryString;
 
-        // }
+            using (UnityWebRequest request = UnityWebRequestMultimedia.GetAudioClip(path, AudioType.WAV))
+            {
+                var asyncOperation = await request.SendWebRequest();
+
+                await UniTask.WaitUntil(() => asyncOperation.isDone);
+                if (request.result != UnityWebRequest.Result.Success)
+                {
+                    Debug.LogError(request.error);
+                    return null;
+                }
+
+                var response = new VoicevoxTextToSpeechResponse
+                {
+                    audioClip = DownloadHandlerAudioClip.GetContent(request)
+                };
+                return response;
+            }
+        }
     }
 }

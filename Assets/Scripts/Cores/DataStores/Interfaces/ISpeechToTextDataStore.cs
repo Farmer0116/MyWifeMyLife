@@ -5,6 +5,6 @@ namespace Cores.DataStores.Interfaces
 {
     public interface ISpeechToTextDataStore
     {
-        UniTask<OpenAISpeechToTextResponse> GenerateTranscriptionAsync(byte[] audioData, string language = "ja");
+        UniTask<OpenAISpeechToTextResponse> GenerateSpeechToTextAsync(byte[] audioData, string language = "ja");
     }
 }
