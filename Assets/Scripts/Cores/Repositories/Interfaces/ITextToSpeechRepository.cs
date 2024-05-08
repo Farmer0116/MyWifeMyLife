@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Cores.Repositories
+namespace Cores.Repositories.Interfaces
 {
     public interface ITextToSpeechRepository
     {
