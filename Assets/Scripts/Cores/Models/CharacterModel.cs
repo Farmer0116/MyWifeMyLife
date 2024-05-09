@@ -18,12 +18,13 @@ namespace Cores.Models
         // 初期化パラメータ
         public class CharacterModelParam
         {
-            public int Id;
-            public string Name;
-            public string VrmPath;
-            public int TalkSpeed;
-            public float HearingRange;
-            public string CharacterPrompt;
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string VrmPath { get; set; }
+            public int TalkSpeed { get; set; }
+            public float HearingRange { get; set; }
+            public string CharacterPrompt { get; set; }
+            public SpeakerSelectionInfo SpeakerSelectionInfo { get; set; }
 
             public CharacterModelParam
             (
@@ -41,6 +42,7 @@ namespace Cores.Models
                 TalkSpeed = talkSpeed;
                 HearingRange = hearingRange;
                 CharacterPrompt = characterPrompt;
+                SpeakerSelectionInfo = new SpeakerSelectionInfo(TextToSpeechServiceType.Voicevox, 0, "");
             }
         }
 
@@ -57,6 +59,7 @@ namespace Cores.Models
             _talkSpeed = characterModelParam.TalkSpeed;
             _hearingRange = characterModelParam.HearingRange;
             _characterPrompt = characterModelParam.CharacterPrompt;
+            _speakerSelectionInfo = characterModelParam.SpeakerSelectionInfo;
         }
 
         // 初期値
@@ -66,6 +69,7 @@ namespace Cores.Models
         public int TalkSpeed { get { return _talkSpeed; } set { _talkSpeed = value; } }
         public float HearingRange { get { return _hearingRange; } set { _hearingRange = value; } }
         public string CharacterPrompt { get { return _characterPrompt; } set { _characterPrompt = value; } }
+        public SpeakerSelectionInfo SpeakerSelectionInfo { get { return _speakerSelectionInfo; } set { _speakerSelectionInfo = value; } }
 
         private int _id;
         private string _name;
@@ -73,6 +77,7 @@ namespace Cores.Models
         private int _talkSpeed;
         private float _hearingRange;
         private string _characterPrompt;
+        private SpeakerSelectionInfo _speakerSelectionInfo;
 
         // その他
         public List<MessageInfo> ConversationHistory { get { return _conversationHistory; } set { _conversationHistory = value; } }
@@ -102,6 +107,7 @@ namespace Cores.Models
             Debug.Log($"{_name}を{position}に{rotation}を向いて{scale}のサイズで生成します");
 #endif
             _characterInstance = await SpawnVrmCharacter.Spawn(_vrmPath, position, rotation, scale);
+            _characterInstance.AddComponent<AudioSource>();
             OnSpawnSubject.OnNext(_characterInstance);
             return _characterInstance;
         }

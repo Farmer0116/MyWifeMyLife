@@ -5,6 +5,10 @@ using UniRx;
 using UnityEngine;
 using Cores.UseCases.Interfaces;
 using Cores.Models.Interfaces;
+using Cores.Repositories.Interfaces;
+using System.Collections.Generic;
+using Structures;
+using Types;
 
 namespace Cores.UseCases
 {
@@ -14,18 +18,21 @@ namespace Cores.UseCases
         private ISpawningCharactersModel _spawningCharactersModel;
         private ICharacterModel _characterModel;
         private IVRMSelectionPresenter _vrmSelectionPresenter;
+        private IVoicevoxSpeakerRepository _voicevoxSpeakerRepository;
         private CompositeDisposable _disposables = new CompositeDisposable();
 
         public VRMSelectionUseCase
         (
             CharacterModel.Factory factory,
             ISpawningCharactersModel spawningCharactersModel,
-            IVRMSelectionPresenter vrmSelectionPresenter
+            IVRMSelectionPresenter vrmSelectionPresenter,
+            IVoicevoxSpeakerRepository voicevoxSpeakerRepository
         )
         {
             _factory = factory;
             _spawningCharactersModel = spawningCharactersModel;
             _vrmSelectionPresenter = vrmSelectionPresenter;
+            _voicevoxSpeakerRepository = voicevoxSpeakerRepository;
         }
 
         public async UniTask Begin()
@@ -46,10 +53,22 @@ namespace Cores.UseCases
                 }
             }).AddTo(_disposables);
 
-            // ブラウザボタンイベント
-            _vrmSelectionPresenter.OnClickBrowserButton.Subscribe(_ =>
+            // todo : 一時対応(ボイスボックス専用) ============
+            // 話者情報設定
+            var speakerInfos = await _voicevoxSpeakerRepository.GetVoicevoxSpeakersAsync();
+            var speakerLabels = new List<string>();
+            var speakerSelections = new List<SpeakerSelectionInfo>();
+            foreach (var speaker in speakerInfos)
             {
-            }).AddTo(_disposables);
+                foreach (var style in speaker.Styles)
+                {
+                    var label = speaker.Name + " : " + style.Name;
+                    speakerSelections.Add(new SpeakerSelectionInfo(TextToSpeechServiceType.Voicevox, style.Id, label));
+                    speakerLabels.Add(label);
+                }
+            }
+            _vrmSelectionPresenter.SetSpeaker(speakerLabels);
+            // ===============================================
 
             // スポーンボタンイベント
             _vrmSelectionPresenter.OnClickSpawnButton.Subscribe(async _ =>
@@ -66,6 +85,11 @@ namespace Cores.UseCases
                 {
                     setCharacterPrompt(_characterModel);
                 }).AddTo(_characterModel.DespawnDisposables);
+
+                _vrmSelectionPresenter.OnChangeSpeaker.Subscribe(index =>
+                {
+                    _characterModel.SpeakerSelectionInfo = speakerSelections[index];
+                }).AddTo(_characterModel.DespawnDisposables);
                 // ===============================================
 
                 // スポーン時のイベント
@@ -79,6 +103,9 @@ namespace Cores.UseCases
                         animator.runtimeAnimatorController = controller;
                     }
                     setCharacterPrompt(_characterModel);
+
+                    var el = speakerSelections[_vrmSelectionPresenter.GetSpeaker()];
+                    _characterModel.SpeakerSelectionInfo = el;
                     // ===============================================
 
                     _spawningCharactersModel.Characters.Add(_characterModel);

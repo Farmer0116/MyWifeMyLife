@@ -1,22 +1,10 @@
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace Cores.Repositories.Interfaces
 {
-    public interface ISpeechToTextRepository
+    public interface ITextToSpeechRepository
     {
-        UniTask<GenerateTranscription> GenerateTranscriptionAsync(byte[] audioData, string language = "ja");
-    }
-
-    public class GenerateTranscription
-    {
-        public string Text { get; set; }
-
-        public GenerateTranscription
-        (
-            string text
-        )
-        {
-            Text = text;
-        }
+        UniTask<AudioClip> GenerateSpeechToTextAsync(int speaker, string text, int intpitch = 0, float intonationScale = 1, float speed = 1);
     }
 }

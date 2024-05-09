@@ -3,8 +3,8 @@ using Cysharp.Threading.Tasks;
 
 namespace Cores.DataStores.Interfaces
 {
-    public interface ISpeechToTextDataStore
+    public interface ITextToSpeechDataStore
     {
-        UniTask<OpenAISpeechToTextResponse> GenerateTranscriptionAsync(byte[] audioData, string language = "ja");
+        UniTask<VoicevoxTextToSpeechResponse> GenerateTextToSpeechAsync(int speaker, string text, int intpitch = 0, float intonationScale = 1, float speed = 1);
     }
 }

@@ -5,11 +5,11 @@ using Cysharp.Threading.Tasks;
 
 namespace Cores.DataStores
 {
-    public class SpeechToTextDataStore : ISpeechToTextDataStore
+    public class TextToSpeechDataStore : ITextToSpeechDataStore
     {
         private IAPIClient _apiClient;
 
-        public SpeechToTextDataStore
+        public TextToSpeechDataStore
         (
             IAPIClient apiClient
         )
@@ -17,9 +17,9 @@ namespace Cores.DataStores
             _apiClient = apiClient;
         }
 
-        public async UniTask<OpenAISpeechToTextResponse> GenerateTranscriptionAsync(byte[] audioData, string language = "ja")
+        public async UniTask<VoicevoxTextToSpeechResponse> GenerateTextToSpeechAsync(int speaker, string text, int intpitch = 0, float intonationScale = 1, float speed = 1)
         {
-            var response = await _apiClient.PostOpenAISpeechToTextAsync(audioData, language);
+            var response = await _apiClient.PostVoicevoxTextToSpeechAsync(speaker, text, intpitch, intonationScale, speed);
             return response;
         }
     }
