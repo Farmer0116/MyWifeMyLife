@@ -11,7 +11,7 @@ namespace Utils
         string currentRecordingMicDeviceName = "";
 
         // ヘッダーサイズ
-        int HeaderByteSize = 44;
+        int HeaderByteSize = 22;
 
         // BitsPerSample
         int BitsPerSample = 16;
@@ -23,7 +23,7 @@ namespace Utils
         AudioClip recordedAudioClip;
 
         // サンプリング周波数
-        int samplingFrequency = 44100;
+        int samplingFrequency = 16000;
 
         // Wav データ
         byte[] dataWav;
