@@ -3,6 +3,7 @@
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.meta.xr.sdk.core": "64.0.0",
     "com.meta.xr.sdk.interaction": "64.0.0",
+    "com.meta.xr.sdk.interaction.ovr": "64.0.0",
     "com.meta.xr.simulator": "64.0.0",
     "com.unity.collab-proxy": "2.2.0",
     "com.unity.ide.rider": "3.0.26",
