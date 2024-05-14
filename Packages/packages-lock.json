@@ -7,13 +7,6 @@
       "dependencies": {},
       "hash": "809d23edae0df58fd0f61b4b6f67855c59d1b2fb"
     },
-    "com.meta.xr.simulator": {
-      "version": "64.0.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
     "com.unity.burst": {
       "version": "1.8.11",
       "depth": 1,
