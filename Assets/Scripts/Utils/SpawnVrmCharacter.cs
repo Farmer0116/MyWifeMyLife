@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using UniGLTF;
 using UnityEngine;
 using UniVRM10;
-using UniVRM10.URPSample;
 
 namespace Utils
 {
