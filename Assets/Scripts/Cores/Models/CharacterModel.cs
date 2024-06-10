@@ -106,8 +106,9 @@ namespace Cores.Models
 #if UNITY_EDITOR
             Debug.Log($"{_name}を{position}に{rotation}を向いて{scale}のサイズで生成します");
 #endif
-            _characterInstance = await SpawnVrmCharacter.Spawn(_vrmPath, position, rotation, scale);
+            _characterInstance = await VrmCharacterSpawner.Spawn(_vrmPath, position, rotation, scale);
             _characterInstance.AddComponent<AudioSource>();
+            LipSyncUtility.InitializeLipSync(_characterInstance);
             OnSpawnSubject.OnNext(_characterInstance);
             return _characterInstance;
         }

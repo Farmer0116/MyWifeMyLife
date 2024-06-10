@@ -1256,7 +1256,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 30
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1282,7 +1282,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 481119081}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 1.25, z: 1}
+  m_LocalPosition: {x: 0, y: 1.212, z: 1.581}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3274,9 +3274,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4c0df49a4e36ef4ca13a0b14522d070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLoal: 1
-  fileName: Character_1
-  previewRawImage: {fileID: 1389306723}
 --- !u!4 &1413215217
 Transform:
   m_ObjectHideFlags: 0
@@ -3805,7 +3802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b1f590a033a1074daaa9336223226f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _vrmSelectionView: {fileID: 1997635286}
+  _characterSelectionView: {fileID: 1997635286}
   _playerTalkingView: {fileID: 1123106056}
   _conversationSubtitleView: {fileID: 442249125}
 --- !u!1 &1966392929
@@ -4101,7 +4098,7 @@ GameObject:
   - component: {fileID: 1997635287}
   - component: {fileID: 1997635286}
   m_Layer: 5
-  m_Name: VRMSelectionUI
+  m_Name: CharacterSelectionUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
