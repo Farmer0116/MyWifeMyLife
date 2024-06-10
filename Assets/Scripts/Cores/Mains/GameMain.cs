@@ -9,7 +9,7 @@ namespace Mains
     public class GameMain : MonoBehaviour
     {
         private ICharacterBehaviorUseCase _characterBehaviorUseCase;
-        private IVRMSelectionUseCase _vrmSelectionUseCase;
+        private ICharacterSelectionUseCase _characterSelectionUseCase;
         private IConversationManagementUseCase _conversationManagementUseCase;
         private IPlayerTalkingUseCase _playerTalkingUseCase;
         private ICharacterTalkingUseCase _characterTalkingUseCase;
@@ -19,7 +19,7 @@ namespace Mains
         private void construct
         (
           ICharacterBehaviorUseCase characterBehaviorUseCase,
-          IVRMSelectionUseCase vrmSelectionUseCase,
+          ICharacterSelectionUseCase characterSelectionUseCase,
           IConversationManagementUseCase conversationManagementUseCase,
           IPlayerTalkingUseCase playerTalkingUseCase,
           ICharacterTalkingUseCase characterTalkingUseCase,
@@ -27,7 +27,7 @@ namespace Mains
         )
         {
             _characterBehaviorUseCase = characterBehaviorUseCase;
-            _vrmSelectionUseCase = vrmSelectionUseCase;
+            _characterSelectionUseCase = characterSelectionUseCase;
             _conversationManagementUseCase = conversationManagementUseCase;
             _playerTalkingUseCase = playerTalkingUseCase;
             _characterTalkingUseCase = characterTalkingUseCase;
@@ -39,7 +39,7 @@ namespace Mains
             try
             {
                 await _characterBehaviorUseCase.Begin();
-                await _vrmSelectionUseCase.Begin();
+                await _characterSelectionUseCase.Begin();
                 await _conversationManagementUseCase.Begin();
                 await _playerTalkingUseCase.Begin();
                 await _characterTalkingUseCase.Begin();

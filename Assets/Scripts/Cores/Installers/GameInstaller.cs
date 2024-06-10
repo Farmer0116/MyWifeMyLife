@@ -39,7 +39,7 @@ namespace Installers
 
             // UseCase
             Container.Bind<ICharacterBehaviorUseCase>().To<CharacterBehaviorUseCase>().AsCached().IfNotBound();
-            Container.Bind<IVRMSelectionUseCase>().To<VRMSelectionUseCase>().AsCached().IfNotBound();
+            Container.Bind<ICharacterSelectionUseCase>().To<CharacterSelectionUseCase>().AsCached().IfNotBound();
             Container.Bind<IConversationManagementUseCase>().To<ConversationManagementUseCase>().AsCached().IfNotBound();
             Container.Bind<IPlayerTalkingUseCase>().To<PlayerTalkingUseCase>().AsCached().IfNotBound();
             Container.Bind<ICharacterTalkingUseCase>().To<CharacterTalkingUseCase>().AsCached().IfNotBound();

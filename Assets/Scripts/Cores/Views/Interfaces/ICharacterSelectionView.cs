@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Cores.Views.Interfaces
 {
-    public interface IVRMSelectionView
+    public interface ICharacterSelectionView
     {
         RectTransform RootTransform { get; }
         Button SpawnButton { get; }

@@ -4,7 +4,7 @@ using UniRx;
 
 namespace Cores.Presenters.Interfaces
 {
-    public interface IVRMSelectionPresenter
+    public interface ICharacterSelectionPresenter
     {
         IObservable<Unit> OnClickSpawnButton { get; }
         IObservable<string> OnChangeCharacterPromptText { get; }

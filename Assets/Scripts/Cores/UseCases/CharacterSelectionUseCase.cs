@@ -12,26 +12,26 @@ using Types;
 
 namespace Cores.UseCases
 {
-    public class VRMSelectionUseCase : IVRMSelectionUseCase
+    public class CharacterSelectionUseCase : ICharacterSelectionUseCase
     {
         private CharacterModel.Factory _factory;
         private ISpawningCharactersModel _spawningCharactersModel;
         private ICharacterModel _characterModel;
-        private IVRMSelectionPresenter _vrmSelectionPresenter;
+        private ICharacterSelectionPresenter _characterSelectionPresenter;
         private IVoicevoxSpeakerRepository _voicevoxSpeakerRepository;
         private CompositeDisposable _disposables = new CompositeDisposable();
 
-        public VRMSelectionUseCase
+        public CharacterSelectionUseCase
         (
             CharacterModel.Factory factory,
             ISpawningCharactersModel spawningCharactersModel,
-            IVRMSelectionPresenter vrmSelectionPresenter,
+            ICharacterSelectionPresenter characterSelectionPresenter,
             IVoicevoxSpeakerRepository voicevoxSpeakerRepository
         )
         {
             _factory = factory;
             _spawningCharactersModel = spawningCharactersModel;
-            _vrmSelectionPresenter = vrmSelectionPresenter;
+            _characterSelectionPresenter = characterSelectionPresenter;
             _voicevoxSpeakerRepository = voicevoxSpeakerRepository;
         }
 
@@ -42,13 +42,13 @@ namespace Cores.UseCases
             {
                 if (Input.GetKeyDown(KeyCode.H))
                 {
-                    if (_vrmSelectionPresenter.GetRootUIState())
+                    if (_characterSelectionPresenter.GetRootUIState())
                     {
-                        _vrmSelectionPresenter.HideRootUI();
+                        _characterSelectionPresenter.HideRootUI();
                     }
                     else
                     {
-                        _vrmSelectionPresenter.ShowRootUI();
+                        _characterSelectionPresenter.ShowRootUI();
                     }
                 }
             }).AddTo(_disposables);
@@ -67,26 +67,26 @@ namespace Cores.UseCases
                     speakerLabels.Add(label);
                 }
             }
-            _vrmSelectionPresenter.SetSpeaker(speakerLabels);
+            _characterSelectionPresenter.SetSpeaker(speakerLabels);
             // ===============================================
 
             // スポーンボタンイベント
-            _vrmSelectionPresenter.OnClickSpawnButton.Subscribe(async _ =>
+            _characterSelectionPresenter.OnClickSpawnButton.Subscribe(async _ =>
             {
-                _vrmSelectionPresenter.InvalidSpawnButton();
+                _characterSelectionPresenter.InvalidSpawnButton();
 
                 if (_characterModel != null) _characterModel.Despawn();
                 _characterModel = _factory.Create(new CharacterModel.CharacterModelParam());
-                var path = _vrmSelectionPresenter.GetVRMFilePath();
+                var path = _characterSelectionPresenter.GetVRMFilePath();
                 if (!string.IsNullOrEmpty(path)) _characterModel.VrmPath = path;
 
                 // todo : 一時対応 ================================
-                _vrmSelectionPresenter.OnChangeCharacterPromptText.Subscribe(_ =>
+                _characterSelectionPresenter.OnChangeCharacterPromptText.Subscribe(_ =>
                 {
                     setCharacterPrompt(_characterModel);
                 }).AddTo(_characterModel.DespawnDisposables);
 
-                _vrmSelectionPresenter.OnChangeSpeaker.Subscribe(index =>
+                _characterSelectionPresenter.OnChangeSpeaker.Subscribe(index =>
                 {
                     _characterModel.SpeakerSelectionInfo = speakerSelections[index];
                 }).AddTo(_characterModel.DespawnDisposables);
@@ -104,12 +104,12 @@ namespace Cores.UseCases
                     }
                     setCharacterPrompt(_characterModel);
 
-                    var el = speakerSelections[_vrmSelectionPresenter.GetSpeaker()];
+                    var el = speakerSelections[_characterSelectionPresenter.GetSpeaker()];
                     _characterModel.SpeakerSelectionInfo = el;
                     // ===============================================
 
                     _spawningCharactersModel.Characters.Add(_characterModel);
-                    _vrmSelectionPresenter.ValidSpawnButton();
+                    _characterSelectionPresenter.ValidSpawnButton();
                 }).AddTo(_characterModel.DespawnDisposables);
 
                 // デスポーン時のイベント
@@ -125,9 +125,9 @@ namespace Cores.UseCases
 
         private void setCharacterPrompt(ICharacterModel characterModel)
         {
-            if (!string.IsNullOrEmpty(_vrmSelectionPresenter.GetCharacterPrompt()))
+            if (!string.IsNullOrEmpty(_characterSelectionPresenter.GetCharacterPrompt()))
             {
-                characterModel.CharacterPrompt = _vrmSelectionPresenter.GetCharacterPrompt();
+                characterModel.CharacterPrompt = _characterSelectionPresenter.GetCharacterPrompt();
             }
         }
 

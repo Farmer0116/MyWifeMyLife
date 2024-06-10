@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Cores.Views
 {
-    public class VRMSelectionView : MonoBehaviour, IVRMSelectionView
+    public class CharacterSelectionView : MonoBehaviour, ICharacterSelectionView
     {
         public RectTransform RootTransform { get { return _rootTransform; } }
         public Button SpawnButton { get { return _spawnButton; } }

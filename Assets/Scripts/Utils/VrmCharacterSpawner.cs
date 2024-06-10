@@ -6,7 +6,7 @@ using UniVRM10;
 
 namespace Utils
 {
-    public static class SpawnVrmCharacter
+    public static class VrmCharacterSpawner
     {
         public static async Task<GameObject> Spawn(string path, Vector3 position, Quaternion rotation, Vector3 scale)
         {
