@@ -4,9 +4,9 @@ using UniGLTF;
 using UnityEngine;
 using UniVRM10;
 
-namespace Utils
+namespace Utils.Vrm
 {
-    public static class VrmCharacterSpawner
+    public static class VrmCharacterUtility
     {
         public static async Task<GameObject> Spawn(string path, Vector3 position, Quaternion rotation, Vector3 scale)
         {
