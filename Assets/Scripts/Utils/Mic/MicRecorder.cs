@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-namespace Utils
+namespace Utils.Mic
 {
     public class MicRecorder
     {

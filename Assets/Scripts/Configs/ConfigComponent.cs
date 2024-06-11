@@ -1,5 +1,5 @@
 using UnityEngine;
-using Utils;
+using Utils.Pattern;
 
 namespace Configs
 {

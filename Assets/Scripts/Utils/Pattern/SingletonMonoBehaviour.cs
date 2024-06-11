@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Utils
+namespace Utils.Pattern
 {
     public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
     {
